@@ -288,5 +288,6 @@ AC_CONFIG_FILES([Makefile
 		doc/Makefile
 		include/Makefile
 		src/Makefile
-                man/Makefile])
+                man/Makefile
+		oml/Makefile])
 AC_OUTPUT

@@ -1,5 +1,6 @@
 defApplication('app:iperf', 'iperf') do |a|
 
+  a.path = "@bindir@/iperf"
   a.version(2, 0, 5)
   a.shortDescription = 'Iperf traffic generator and bandwidth measurement tool'
   a.description = %{
@@ -65,7 +66,6 @@ packets via various transports, such as TCP and UDP.
   a.defProperty('linux-congestion', 'set TCP congestion control algorithm (Linux only)',
 		'Z', {:type => :boolean, :dynamic => false})
 
-  a.path = "/usr/local/bin/iperf"
 end
 
 # Local Variables:
