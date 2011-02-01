@@ -144,6 +144,10 @@ extern const char reportCSV_bw_jitter_loss_format[];
 
 extern const char warn_window_requested[];
 
+#ifdef HAVE_LIBOML2
+extern const char warn_window_requested_OML[];
+#endif
+
 extern const char warn_window_small[];
 
 extern const char warn_delay_large[];

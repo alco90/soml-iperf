@@ -35,7 +35,7 @@ packets via various transports, such as TCP and UDP.
 		'V', {:type => :boolean, :dynamic => false})
   a.defProperty('reportexclude', '[CDMSV]   exclude C(connection) D(data) M(multicast) S(settings) V(server) reports',
 		'x', {:type => :string, :dynamic => false})
-  a.defProperty('reportstyle', 'if set to C or c report results as CSV (comma separated values)',
+  a.defProperty('reportstyle', 'C or c for CSV report, O or o for OML',
 		'y', {:type => :string, :dynamic => false})
 
   a.defProperty('server', 'run in server mode',
@@ -65,6 +65,51 @@ packets via various transports, such as TCP and UDP.
 		'T', {:type => :integer, :dynamic => false})
   a.defProperty('linux-congestion', 'set TCP congestion control algorithm (Linux only)',
 		'Z', {:type => :boolean, :dynamic => false})
+
+  a.defMeasurement("application"){ |m|
+    m.defMetric('version', :string, 'Iperf version')
+    m.defMetric('cmdline', :string, 'Iperf invocation command line')
+  }
+
+  a.defMeasurement("settings"){ |m|
+    m.defMetric('server_mode', :uint32, '1 if in server mode, 0 otherwise')
+    m.defMetric('bind_address', :string, 'Address to bind')
+    m.defMetric('multicast', :uint32, '1 if listening to a Multicast group')
+    m.defMetric('multicast_ttl', :uint32, 'Multicast TTL if relevant')
+    m.defMetric('transport_protocol', :uint32, 'Transport protocol (IANA number)')
+    m.defMetric('window_size', :uint32, 'TCP window size')
+    m.defMetric('buffer_size', :uint32, 'UDP buffer size')
+  }
+
+  a.defMeasurement("connection"){ |m|
+    m.defMetric('connection_id', :uint32, 'Connection identifier (socket)')
+    m.defMetric('local_address', :string, 'Local network address')
+    m.defMetric('local_port', :uint32, 'Local port')
+    m.defMetric('foreign_address', :string, 'Remote network address')
+    m.defMetric('foreign_port', :uint32, 'Remote port')
+  }
+
+  a.defMeasurement("transfer"){ |m|
+    m.defMetric('connection_id', :uint32, 'Connection identifier (socket)')
+    m.defMetric('begin_interval', :double, 'Start of the averaging interval (Iperf timestamp)')
+    m.defMetric('end_interval', :double, 'End of the averaging interval (Iperf timestamp)')
+    m.defMetric('size', :uint32, 'Amount of transmitted data [Bytes]')
+  }
+
+  a.defMeasurement("losses"){ |m|
+    m.defMetric('connection_id', :uint32, 'Connection identifier (socket)')
+    m.defMetric('begin_interval', :double, 'Start of the averaging interval (Iperf timestamp)')
+    m.defMetric('end_interval', :double, 'End of the averaging interval (Iperf timestamp)')
+    m.defMetric('total_datagrams', :uint32, 'Total number of datagrams')
+    m.defMetric('lost_datagrams', :uint32, 'Number of lost datagrams')
+  }
+
+  a.defMeasurement("jitter"){ |m|
+    m.defMetric('connection_id', :uint32, 'Connection identifier (socket)')
+    m.defMetric('begin_interval', :double, 'Start of the averaging interval (Iperf timestamp)')
+    m.defMetric('end_interval', :double, 'End of the averaging interval (Iperf timestamp)')
+    m.defMetric('jitter', :double, 'Average jitter [ms]')
+  }
 
 end
 

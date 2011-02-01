@@ -118,7 +118,9 @@ Client specific:\n\
 \n\
 Miscellaneous:\n\
   -x, --reportexclude [CDMSV]   exclude C(connection) D(data) M(multicast) S(settings) V(server) reports\n\
-  -y, --reportstyle C      report as a Comma-Separated Values\n\
+  -y, --reportstyle\n\
+  		C,c    report as a Comma-Separated Values\n\
+  		o      report using OML (--oml-help for more details)\n\
   -h, --help               print this message and quit\n\
   -v, --version            print version information and quit\n\
 \n\
@@ -273,6 +275,11 @@ const char reportCSV_bw_jitter_loss_format[] =
 
 const char warn_window_requested[] =
 " (WARNING: requested %s)";
+
+#ifdef HAVE_LIBOML2
+const char warn_window_requested_OML[] =
+"WARNING: can't set requested window size %s.\n";
+#endif
 
 const char warn_window_small[] = "\
 WARNING: TCP window size set to %d bytes. A small window size\n\

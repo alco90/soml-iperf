@@ -71,6 +71,10 @@
 #include "List.h"
 #include "util.h"
 
+#ifdef HAVE_LIBOML2
+#include "report_OML.h"
+#endif
+
 #ifdef WIN32
 #include "service.h"
 #endif 
@@ -165,6 +169,14 @@ int main( int argc, char **argv ) {
     Settings_ParseEnvironment( ext_gSettings );
     // read settings from command-line parameters
     Settings_ParseCommandLine( argc, argv, ext_gSettings );
+
+#ifdef HAVE_LIBOML2
+    if (ext_gSettings->mReportMode == kReport_OML) {
+	    OML_init (&argc, (const char**) argv);
+	    OML_set_measurement_points(ext_gSettings);
+	    OML_inject_application(argc, argv);
+    }
+#endif
 
     // Check for either having specified client or server
     if ( ext_gSettings->mThreadMode == kMode_Client 

@@ -35,5 +35,9 @@ iperf_SOURCES = \
 		sockets.c \
 		stdio.c \
 		tcp_window_size.c
+if LIBOML2
+iperf_SOURCES += $(top_builddir)/include/iperf_oml.h ReportOML.c
+endif LIBOML2
+
 
 iperf_LDADD = $(LIBCOMPAT_LDADDS)

@@ -71,6 +71,13 @@
 
 #include "gnu_getopt.h"
 
+#ifdef HAVE_LIBOML2
+#include "report_OML.h"
+// DC1 is a non printable ASCII character
+// We use it to identify OML options when parsing the command line
+#define OML_OPTION	17
+#endif
+
 void Settings_Interpret( char option, const char *optarg, thread_Settings *mExtSettings );
 
 /* -------------------------------------------------------------------
@@ -121,6 +128,22 @@ const struct option long_options[] =
 {"ipv6_domain",      no_argument, NULL, 'V'},
 {"suggest_win_size", no_argument, NULL, 'W'},
 {"linux-congestion", required_argument, NULL, 'Z'},
+
+#ifdef HAVE_LIBOML2
+// prevent iperf from complainig about oml parameters
+{"oml-id",     required_argument, NULL, OML_OPTION},
+{"oml-file",   required_argument, NULL, OML_OPTION},
+{"oml-server", required_argument, NULL, OML_OPTION},
+{"oml-config", required_argument, NULL, OML_OPTION},
+{"oml-samples", required_argument, NULL, OML_OPTION},
+{"oml-interval", required_argument, NULL, OML_OPTION},
+{"oml-log-file", required_argument, NULL, OML_OPTION},
+{"oml-log-level", required_argument, NULL, OML_OPTION},
+{"oml-noop ",        no_argument, NULL, OML_OPTION},
+{"oml-filters ",     no_argument, NULL, OML_OPTION},
+{"oml-help ",        no_argument, NULL, OML_OPTION},
+#endif
+
 {0, 0, 0, 0}
 };
 
@@ -164,6 +187,14 @@ const struct option env_options[] =
 {"IPERF_IPV6_DOMAIN",      no_argument, NULL, 'V'},
 {"IPERF_SUGGEST_WIN_SIZE", required_argument, NULL, 'W'},
 {"IPERF_CONGESTION_CONTROL",  required_argument, NULL, 'Z'},
+
+#ifdef HAVE_LIBOML2
+// liboml2 client options
+{"OML_NAME",         required_argument, NULL, OML_OPTION},
+{"OML_EXP_ID",       required_argument, NULL, OML_OPTION},
+{"OML_CONFIG",       required_argument, NULL, OML_OPTION},
+{"OML_SERVER",       required_argument, NULL, OML_OPTION},
+#endif
 {0, 0, 0, 0}
 };
 
@@ -531,6 +562,9 @@ void Settings_Interpret( char option, const char *optarg, thread_Settings *mExtS
                 case 'C':
                     mExtSettings->mReportMode = kReport_CSV;
                     break;
+                case 'o':
+                    mExtSettings->mReportMode = kReport_OML;
+                    break;
                 default:
                     fprintf( stderr, warn_invalid_report_style, optarg );
             }
@@ -671,6 +705,11 @@ void Settings_Interpret( char option, const char *optarg, thread_Settings *mExtS
             fprintf( stderr, "The -Z option is not available on this operating system\n");
 #endif
 	    break;
+
+#ifdef HAVE_LIBOML2
+	case OML_OPTION:
+	    // nothing to be done here
+#endif
 
         default: // ignore unknown
             break;
