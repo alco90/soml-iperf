@@ -39,7 +39,12 @@
 #define OML_FROM_MAIN
 #include "report_OML.h"
 
+// YUCK!
+// Only valid in this scope, though...
+pid_t OML_main_iperf_pid;
+
 int OML_init(int *argc, const char **argv) {
+	OML_main_iperf_pid = getpid();
 	return omlc_init("iperf", argc,  argv, NULL);
 }
 
@@ -51,7 +56,7 @@ int OML_set_measurement_points(thread_Settings *mSettings) {
 void OML_inject_application(int argc, char **argv) {
 	int i, cmdlen=argc;
 	char* cmdline;
-	OmlValueU v[2];
+	OmlValueU v[3];
 
 	for (i=0; i<argc; i++)
 		cmdlen += strlen(argv[i]);
@@ -65,59 +70,64 @@ void OML_inject_application(int argc, char **argv) {
 		}
 	}
 
-	omlc_set_string(v[0], IPERF_VERSION);
-	omlc_set_string(v[1], cmdline);
+	omlc_set_uint32(v[0], OML_main_iperf_pid);
+	omlc_set_string(v[1], IPERF_VERSION);
+	omlc_set_string(v[2], cmdline);
 	omlc_inject(g_oml_mps->application, v);
 }
 
 void OML_inject_connection(int ID, const char *local_addr, int local_port,
 		const char *remote_addr, int remote_port) {
-	OmlValueU v[5];
+	OmlValueU v[6];
 
-	omlc_set_uint32(v[0], ID);
-	omlc_set_const_string(v[1], (char*) local_addr);
-	omlc_set_uint32(v[2], local_port);
-	omlc_set_const_string(v[3], (char*) remote_addr);
-	omlc_set_uint32(v[4], remote_port);
+	omlc_set_uint32(v[0], OML_main_iperf_pid);
+	omlc_set_uint32(v[1], ID);
+	omlc_set_const_string(v[2], (char*) local_addr);
+	omlc_set_uint32(v[3], local_port);
+	omlc_set_const_string(v[4], (char*) remote_addr);
+	omlc_set_uint32(v[5], remote_port);
 
 	omlc_inject(g_oml_mps->connection, v);
 }
 
 void OML_inject_settings(int server_mode, const char *bind_addr, int multicast, int mcast_ttl,
 		int proto, int window_size, int buffer_size) {
-	OmlValueU v[7];
+	OmlValueU v[8];
 
-	omlc_set_uint32(v[0], server_mode);
-	omlc_set_const_string(v[1], (char*) bind_addr);
-	omlc_set_uint32(v[2], multicast);
-	omlc_set_uint32(v[3], mcast_ttl);
-	omlc_set_uint32(v[4], proto);
+	omlc_set_uint32(v[0], OML_main_iperf_pid);
+	omlc_set_uint32(v[1], server_mode);
+	omlc_set_const_string(v[2], (char*) bind_addr);
+	omlc_set_uint32(v[3], multicast);
+	omlc_set_uint32(v[4], mcast_ttl);
+	omlc_set_uint32(v[5], proto);
 	omlc_set_uint32(v[5], window_size);
-	omlc_set_uint32(v[6], buffer_size);
+	omlc_set_uint32(v[7], buffer_size);
 
 	omlc_inject(g_oml_mps->settings, v);
 }
 
 void OML_inject_transfer(int ID, double begin_interval, double end_interval, int size) {
-	OmlValueU v[4];
+	OmlValueU v[5];
 
-	omlc_set_uint32(v[0], ID);
-	omlc_set_double(v[1], begin_interval);
-	omlc_set_double(v[2], end_interval);
-	omlc_set_uint32(v[3], size);
+	omlc_set_uint32(v[0], OML_main_iperf_pid);
+	omlc_set_uint32(v[1], ID);
+	omlc_set_double(v[2], begin_interval);
+	omlc_set_double(v[3], end_interval);
+	omlc_set_uint32(v[4], size);
 
 	omlc_inject(g_oml_mps->transfer, v);
 }
 
 void OML_inject_losses(int ID, double begin_interval, double end_interval,
 		int total_datagrams, int lost_datagrams) {
-	OmlValueU v[5];
+	OmlValueU v[6];
 
-	omlc_set_uint32(v[0], ID);
-	omlc_set_double(v[1], begin_interval);
-	omlc_set_double(v[2], end_interval);
-	omlc_set_uint32(v[3], total_datagrams);
-	omlc_set_uint32(v[4], lost_datagrams);
+	omlc_set_uint32(v[0], OML_main_iperf_pid);
+	omlc_set_uint32(v[1], ID);
+	omlc_set_double(v[2], begin_interval);
+	omlc_set_double(v[3], end_interval);
+	omlc_set_uint32(v[4], total_datagrams);
+	omlc_set_uint32(v[5], lost_datagrams);
 
 	omlc_inject(g_oml_mps->losses, v);
 }
@@ -125,6 +135,7 @@ void OML_inject_losses(int ID, double begin_interval, double end_interval,
 void OML_inject_jitter(int ID, double begin_interval, double end_interval, double jitter) {
 	OmlValueU v[4];
 
+	omlc_set_uint32(v[0], OML_main_iperf_pid);
 	omlc_set_uint32(v[0], ID);
 	omlc_set_double(v[1], begin_interval);
 	omlc_set_double(v[2], end_interval);
