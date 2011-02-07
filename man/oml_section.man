@@ -3,8 +3,14 @@
 .BR -y ", " --reportstyle " o"
 Send standard iperf reports to measurement points
 \fItransfer\fR, \fIlosses\fR and \fIjitter\fR.
+.TP
+.BR -y ", " --reportstyle " O"
+Send per-packet information to measurement point \fIpackets\fR.
 .P
-With this option, iperf uses
+With option
+.BR -y
+.BR o ,
+iperf uses
 .BR liboml (2)
 to report its measurements, instead of printing them to the screen. Any OML option (
 .BR --oml-* )
@@ -15,6 +21,11 @@ is specified.  More specifically,
 .BR --oml-help
 will can be used to print the available options.  With other reporting
 mechanisms, these options will be silently ignored.
+
+Option
+.BR -y
+.BR O
+activates the additional reporting of each sent or received packet.
 
 In addition to the measured
 sample, some metadata about the application itself and its invocation is sent to
@@ -44,7 +55,7 @@ by OML as a single sample. If one wants to have more frequent intermediate
 reports, it is recommended to rely on iperf's in-built averaging filters, and
 configure OML to store every report without further averaging, and avoid using
 .BR --oml-interval
-that is,
+in those cases,
 .IP ""
 .B iperf 
 .I -y o

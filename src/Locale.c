@@ -121,6 +121,7 @@ Miscellaneous:\n\
   -y, --reportstyle\n\
   		C,c    report as a Comma-Separated Values\n\
   		o      report using OML (--oml-help for more details)\n\
+  		O      report all packets using OML\n\
   -h, --help               print this message and quit\n\
   -v, --version            print version information and quit\n\
 \n\

@@ -30,6 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 #include <oml2/omlc.h>
+#include <stdint.h>
 #include "headers.h"
 #include "Settings.hpp"
 #include "SocketAddr.h"
@@ -56,7 +57,10 @@ int OML_set_measurement_points(thread_Settings *mSettings) {
 void OML_inject_application(int argc, char **argv) {
 	int i, cmdlen=argc;
 	char* cmdline;
-	OmlValueU v[3];
+	struct timeval tv;
+	OmlValueU v[5];
+
+	gettimeofday(&tv, NULL);
 
 	for (i=0; i<argc; i++)
 		cmdlen += strlen(argv[i]);
@@ -73,6 +77,8 @@ void OML_inject_application(int argc, char **argv) {
 	omlc_set_uint32(v[0], OML_main_iperf_pid);
 	omlc_set_string(v[1], IPERF_VERSION);
 	omlc_set_string(v[2], cmdline);
+	omlc_set_uint32(v[3], (uint32_t) tv.tv_sec);
+	omlc_set_uint32(v[4], (uint32_t) tv.tv_usec);
 	omlc_inject(g_oml_mps->application, v);
 }
 
@@ -142,6 +148,23 @@ void OML_inject_jitter(int ID, double begin_interval, double end_interval, doubl
 	omlc_set_double(v[4], jitter);
 
 	omlc_inject(g_oml_mps->jitter, v);
+}
+	
+void OML_inject_packets(int ID, int packetID, int packetLen,
+			time_t receivedtime_s, suseconds_t receivedtime_us,
+			time_t senttime_s, suseconds_t senttime_us) {
+	OmlValueU v[8];	
+
+	omlc_set_uint32(v[0], OML_main_iperf_pid);
+	omlc_set_uint32(v[1], ID);
+	omlc_set_uint32(v[2], packetID);
+	omlc_set_uint32(v[3], packetLen);
+	omlc_set_uint32(v[4], receivedtime_s);
+	omlc_set_uint32(v[5], receivedtime_us);
+	omlc_set_uint32(v[6], senttime_s);
+	omlc_set_uint32(v[7], senttime_us);
+
+	omlc_inject(g_oml_mps->packets, v);
 }
 
 void *OML_peer(Connection_Info *stats, int ID) {
@@ -239,3 +262,10 @@ void OML_serverstats(Connection_Info *conn, Transfer_Info *stats) {
 	OML_inject_jitter(stats->transferID, stats->startTime, stats->endTime,
 			stats->jitter * 1000.0);
 }
+
+void OML_handle_packet(Transfer_Info *stats, ReportStruct *packet) {
+	OML_inject_packets(stats->transferID, packet->packetID, packet->packetLen,
+			packet->packetTime.tv_sec, packet->packetTime.tv_usec,
+			packet->sentTime.tv_sec, packet->sentTime.tv_usec);
+}
+

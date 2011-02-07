@@ -91,6 +91,7 @@ report_connection connection_reports[kReport_MAXIMUM] = {
     CSV_peer,
 #ifdef HAVE_LIBOML2
     OML_peer,
+    OML_peer,
 #endif
 };
 
@@ -98,6 +99,7 @@ report_settings settings_reports[kReport_MAXIMUM] = {
     reporter_reportsettings,
     settings_notimpl,
 #ifdef HAVE_LIBOML2
+    OML_settings,
     OML_settings,
 #endif
 };
@@ -107,6 +109,7 @@ report_statistics statistics_reports[kReport_MAXIMUM] = {
     CSV_stats,
 #ifdef HAVE_LIBOML2
     OML_stats,
+    OML_stats,
 #endif
 };
 
@@ -115,6 +118,7 @@ report_serverstatistics serverstatistics_reports[kReport_MAXIMUM] = {
     CSV_serverstats,
 #ifdef HAVE_LIBOML2
     OML_serverstats,
+    OML_serverstats,
 #endif
 };
 
@@ -122,6 +126,7 @@ report_statistics multiple_reports[kReport_MAXIMUM] = {
     reporter_multistats,
     CSV_stats,
 #ifdef HAVE_LIBOML2
+    OML_stats,
     OML_stats,
 #endif
 };
@@ -689,6 +694,11 @@ int reporter_handle_packet( ReportHeader *reporthdr ) {
     ReporterData *data = &reporthdr->report;
     Transfer_Info *stats = &reporthdr->report.info;
     int finished = 0;
+
+#ifdef HAVE_LIBOML2
+    if (kReport_OML_full == data->mode)
+	    OML_handle_packet(stats, packet);
+#endif
 
     data->cntDatagrams++;
     // If this is the last packet set the endTime

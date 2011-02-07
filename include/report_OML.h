@@ -37,6 +37,7 @@
 extern "C" {
 #endif
 
+#include <sys/time.h>
 #include "iperf_oml.h"
 
 int OML_init(int *argc, const char** argv);
@@ -51,11 +52,15 @@ void OML_inject_transfer(int ID, double begin_interval, double end_interval, int
 void OML_inject_losses(int ID, double begin_interval, double end_interval,
 		int total_datagrams, int lost_datagrams);
 void OML_inject_jitter(int ID, double begin_interval, double end_interval, double jitter);
+void OML_inject_packets(int ID, int packetID, int packetLen,
+			time_t receivedtime_s, suseconds_t receivedtime_us,
+			time_t senttime_s, suseconds_t senttime_us);
 
 void *OML_peer( Connection_Info *stats, int ID);
 void OML_settings( ReporterData *data );
 void OML_stats( Transfer_Info *stats );
 void OML_serverstats( Connection_Info *conn, Transfer_Info *stats );
+void OML_handle_packet(Transfer_Info *stats, ReportStruct *packet);
 
 #ifdef __cplusplus
 }

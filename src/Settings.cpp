@@ -567,6 +567,9 @@ void Settings_Interpret( char option, const char *optarg, thread_Settings *mExtS
                 case 'o':
                     mExtSettings->mReportMode = kReport_OML;
                     break;
+                case 'O':
+                    mExtSettings->mReportMode = kReport_OML_full;
+                    break;
 #endif
                 default:
                     fprintf( stderr, warn_invalid_report_style, optarg );

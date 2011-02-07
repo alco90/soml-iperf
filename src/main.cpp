@@ -171,7 +171,8 @@ int main( int argc, char **argv ) {
     Settings_ParseCommandLine( argc, argv, ext_gSettings );
 
 #ifdef HAVE_LIBOML2
-    if (ext_gSettings->mReportMode == kReport_OML) {
+    if (ext_gSettings->mReportMode == kReport_OML ||
+		    ext_gSettings->mReportMode == kReport_OML_full) {
 	    OML_init (&argc, (const char**) argv);
 	    OML_set_measurement_points(ext_gSettings);
 	    OML_inject_application(argc, argv);
