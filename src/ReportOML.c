@@ -100,7 +100,7 @@ void OML_inject_settings(int server_mode, const char *bind_addr, int multicast, 
 	omlc_set_uint32(v[3], multicast);
 	omlc_set_uint32(v[4], mcast_ttl);
 	omlc_set_uint32(v[5], proto);
-	omlc_set_uint32(v[5], window_size);
+	omlc_set_uint32(v[6], window_size);
 	omlc_set_uint32(v[7], buffer_size);
 
 	omlc_inject(g_oml_mps->settings, v);
@@ -133,15 +133,15 @@ void OML_inject_losses(int ID, double begin_interval, double end_interval,
 }
 
 void OML_inject_jitter(int ID, double begin_interval, double end_interval, double jitter) {
-	OmlValueU v[4];
+	OmlValueU v[5];
 
 	omlc_set_uint32(v[0], OML_main_iperf_pid);
-	omlc_set_uint32(v[0], ID);
-	omlc_set_double(v[1], begin_interval);
-	omlc_set_double(v[2], end_interval);
-	omlc_set_double(v[3], jitter);
+	omlc_set_uint32(v[1], ID);
+	omlc_set_double(v[2], begin_interval);
+	omlc_set_double(v[3], end_interval);
+	omlc_set_double(v[4], jitter);
 
-	omlc_inject(g_oml_mps->transfer, v);
+	omlc_inject(g_oml_mps->jitter, v);
 }
 
 void *OML_peer(Connection_Info *stats, int ID) {
@@ -222,8 +222,6 @@ void OML_stats(Transfer_Info *stats) {
 }
 
 void OML_serverstats(Connection_Info *conn, Transfer_Info *stats) {
-	OmlValueU v[9];
-
 	OML_inject_transfer(stats->transferID, stats->startTime, stats->endTime,
 			stats->TotalLen);
 	OML_inject_losses(stats->transferID, stats->startTime, stats->endTime,
