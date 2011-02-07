@@ -135,6 +135,7 @@ set TCP congestion control algorithm (Linux only)
 Controls the size of TCP buffers.
 .SH DIAGNOSTICS
 This section needs to be filled in.
+@OML_SECTION@
 .SH BUGS
 Exit statuses are inconsistent.
 The threading implementation is rather heinous.
@@ -148,5 +149,7 @@ John Estabrook <jestabro at ncsa.uiuc.edu>,
 Andrew Gallatin <gallatin at gmail.com>,
 Stephen Hemminger <shemminger at linux-foundation.org>
 Richard Hartmann <richih.mailinglist@gmail.com>
+@OML_AUTHORS@
 .SH "SEE ALSO"
+@OML_REFERENCES@
 http://iperf.sourceforge.net/

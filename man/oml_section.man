@@ -1,0 +1,45 @@
+.SH USING OML TO REPORT MEASUREMENTS
+.BR -y ", " --reportstyle " o"
+
+With this option, iperf uses
+.BR liboml (2)
+to report its measurements, instead of printing them to the screen. Any OML option (
+.BR --oml-* )
+can be used when 
+.BR -y
+.BR o
+is specified.  More specifically, 
+.BR --oml-help
+will can be used to print the available options.  With other reporting
+mechanisms, these options will be silently ignored.
+
+It is important to note that the
+.BR --oml-interval 
+option only impacts the generation of OML samples. It is
+.BR NOT
+equivalent to iperf's standard 
+.BR -i " \fIn\fR"
+option. OML is only used to report samples when iperf produces them, every
+.I n
+s. If 
+.BR --oml-interval
+is specified, it will impact the way OML filters process those reports. Notably,
+if the OML interval is larger than 
+.I n ,
+averaged samples will only be recorded at that interval. However, if
+.I n ,
+is larger, it will drive the generation of the reports.
+
+It is the normal default behaviour for iperf to only issue a unique overall
+bandwidth report at the end of the measurement period, which then gets recorded
+by OML as a single sample. If one wants to have more frequent intermediate
+reports, it is recommended to rely on iperf's in-built averaging filters, and
+configure OML to store every report without further averaging, and avoid using
+.BR --oml-interval
+that is,
+.IP ""
+.B iperf 
+.I -y o
+.I -i "\fIn\fR"
+.I --oml-samples 1
+.B ...
