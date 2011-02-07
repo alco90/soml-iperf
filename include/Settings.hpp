@@ -82,7 +82,9 @@ typedef enum ThreadMode {
 typedef enum ReportMode {
     kReport_Default = 0,
     kReport_CSV,
+#ifdef HAVE_LIBOML2
     kReport_OML,
+#endif
     //kReport_XML,
     kReport_MAXIMUM
 } ReportMode;

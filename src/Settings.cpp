@@ -562,9 +562,11 @@ void Settings_Interpret( char option, const char *optarg, thread_Settings *mExtS
                 case 'C':
                     mExtSettings->mReportMode = kReport_CSV;
                     break;
+#ifdef HAVE_LIBOML2
                 case 'o':
                     mExtSettings->mReportMode = kReport_OML;
                     break;
+#endif
                 default:
                     fprintf( stderr, warn_invalid_report_style, optarg );
             }
