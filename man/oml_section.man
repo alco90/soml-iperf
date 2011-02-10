@@ -1,6 +1,9 @@
 .SH USING OML TO REPORT MEASUREMENTS
+.TP
 .BR -y ", " --reportstyle " o"
-
+Send standard iperf reports to measurement points
+\fItransfer\fR, \fIlosses\fR and \fIjitter\fR.
+.P
 With this option, iperf uses
 .BR liboml (2)
 to report its measurements, instead of printing them to the screen. Any OML option (
@@ -12,6 +15,11 @@ is specified.  More specifically,
 .BR --oml-help
 will can be used to print the available options.  With other reporting
 mechanisms, these options will be silently ignored.
+
+In addition to the measured
+sample, some metadata about the application itself and its invocation is sent to
+measurement points \fIapplication\fR and \fIsettings\fR. The endpoints of a
+given connection are also reported in MP \fIconnection\fR. 
 
 It is important to note that the
 .BR --oml-interval 
