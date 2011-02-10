@@ -1,5 +1,5 @@
 man_MANS = iperf.1
-EXTRA_DIST = oml_section.man oml_authors.man oml_references.man
+EXTRA_DIST = oml_section.man oml_authors.man oml_references.man iperf.1.in
 
 iperf.1: iperf.1.in oml_section.man oml_authors.man oml_references.man
 if LIBOML2
