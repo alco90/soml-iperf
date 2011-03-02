@@ -179,6 +179,10 @@ int main( int argc, char **argv ) {
     }
 #endif
 
+    if ( !isSTDOUT( ext_gSettings ) ) {
+        redirect( ext_gSettings->mOutputFileName );
+    }
+
     // Check for either having specified client or server
     if ( ext_gSettings->mThreadMode == kMode_Client 
          || ext_gSettings->mThreadMode == kMode_Listener ) {

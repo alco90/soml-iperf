@@ -255,7 +255,6 @@ void byte_snprintf( char* outString, int inLen,
  * ------------------------------------------------------------------- */
 
 void redirect(const char *inOutputFileName) {
-#ifdef WIN32
 
     FILE *fp;
 
@@ -269,8 +268,6 @@ void redirect(const char *inOutputFileName) {
         fprintf(stderr, "redirect stdout failed!\n");
         return;
     }
-
-#endif
 
     return;
 }
