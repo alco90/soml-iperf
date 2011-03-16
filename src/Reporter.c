@@ -331,6 +331,9 @@ ReportHeader* InitReport( thread_Settings *agent ) {
 #else
         // set start time
         gettimeofday( &(reporthdr->report.startTime), NULL );
+	// next report time
+	reporthdr->report.nextTime = reporthdr->report.startTime;
+	TimeAdd( reporthdr->report.nextTime, reporthdr->report.intervalTime );
         /*
          * Process the report in this thread
          */
