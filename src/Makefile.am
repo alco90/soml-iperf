@@ -1,4 +1,4 @@
-bin_PROGRAMS = iperf
+bin_PROGRAMS = oml2-iperf
 
 LIBCOMPAT_LDADDS = @STRIP_BEGIN@ \
 		   $(top_builddir)/compat/libcompat.a \
@@ -12,9 +12,9 @@ AM_CPPFLAGS = @STRIP_BEGIN@ \
 AM_CXXFLAGS = -Wall
 AM_CFLAGS = -Wall
 
-iperf_LDFLAGS = @CFLAGS@ @PTHREAD_CFLAGS@ @WEB100_CFLAGS@ @DEFS@
+oml2_iperf_LDFLAGS = @CFLAGS@ @PTHREAD_CFLAGS@ @WEB100_CFLAGS@ @DEFS@
 
-iperf_SOURCES = \
+oml2_iperf_SOURCES = \
 		Client.cpp \
 		Extractor.c \
 		Launch.cpp \
@@ -36,8 +36,8 @@ iperf_SOURCES = \
 		stdio.c \
 		tcp_window_size.c
 if LIBOML2
-iperf_SOURCES += $(top_builddir)/include/iperf_oml.h ReportOML.c
+oml2_iperf_SOURCES += $(top_builddir)/include/iperf_oml.h ReportOML.c
 endif LIBOML2
 
 
-iperf_LDADD = $(LIBCOMPAT_LDADDS)
+oml2_iperf_LDADD = $(LIBCOMPAT_LDADDS)

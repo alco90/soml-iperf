@@ -16,4 +16,17 @@ The Board of Trustees of the University of Illinois
 All rights reserved
 See UI License (doc/ui_license.html) for complete details.
 
-$Id: README,v 1.1.1.1 2004/05/18 01:50:44 kgibbs Exp $
+--
+This version of iperf has been instrumented to report OML measurements.
+
+For information on OML please see:
+http://mytestbed.net/projects/oml
+
+The development for OML iperf happens at:
+http://mytestbed.net/projects/iperf
+
+Please report any bugs to:
+oml-user@lists.nicta.com.au
+
+Christoph Dwertmann <christoph.dwertmann@nicta.com.au>
+--

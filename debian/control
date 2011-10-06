@@ -1,0 +1,13 @@
+Source: oml2-iperf
+Section: net
+Priority: optional
+Maintainer: Christoph Dwertmann <christoph.dwertmann@nicta.com.au>
+Build-Depends: cdbs, debhelper (>= 7), autotools-dev, liboml2-dev
+Standards-Version: 3.9.1
+Homepage: http://mytestbed.net/projects/iperf/
+
+Package: oml2-iperf
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, liboml2-0
+Description: Iperf with OML support
+ This project is meant to implement OML support following Iperf development. It is based on iperf 2.0.5.
