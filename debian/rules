@@ -4,4 +4,5 @@ include /usr/share/cdbs/1/rules/autoreconf.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/autotools.mk
 
-
+DEB_CONFIGURE_EXTRA_FLAGS = --program-prefix=oml2-
+DEB_MAKE_INSTALL_TARGE T= install DESTDIR=$(CURDIR4)/debian/tmp/ pkgdatadir=$(CURDIR4)/debian/tmp/usr/share/oml2-iperf

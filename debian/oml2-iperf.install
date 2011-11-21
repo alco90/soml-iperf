@@ -1,3 +1,2 @@
 doc/dast.gif usr/share/doc/oml2-iperf/html
 doc/*.html usr/share/doc/oml2-iperf/html
-src/oml2-iperf usr/bin

@@ -1,6 +1,6 @@
 defApplication('iperf', 'iperf') do |a| 
 
-  a.path = "@bindir@/oml2-iperf"
+  a.path = "@bindir@/iperf"
   a.version(2, 0, 5)
   a.shortDescription = 'Iperf traffic generator and bandwidth measurement tool'
   a.description = %{
