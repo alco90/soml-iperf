@@ -90,8 +90,8 @@ packets via various transports, such as TCP and UDP.
     m.defMetric('connection_id', :long, 'Connection identifier (socket)')
     m.defMetric('local_address', :string, 'Local network address')
     m.defMetric('local_port', :long, 'Local port')
-    m.defMetric('foreign_address', :string, 'Remote network address')
-    m.defMetric('foreign_port', :long, 'Remote port')
+    m.defMetric('remote_address', :string, 'Remote network address')
+    m.defMetric('remote_port', :long, 'Remote port')
   }
 
   a.defMeasurement("transfer"){ |m|
