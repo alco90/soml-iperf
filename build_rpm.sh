@@ -7,7 +7,7 @@ version="2.0.5+oml1"
 tmp="/tmp/iperf-rpmbuild"
 package="oml2-iperf"
 
-autoreconf --install
+./autogen.sh
 ./configure
 make PACKAGE=$package dist
 
@@ -17,7 +17,7 @@ mkdir -p $tmp
 cd $tmp
 mkdir -p BUILD RPMS SOURCES SPECS SRPMS
 cd -
-ln -s `pwd`/$package-$version.tar.gz $tmp/SOURCES/
+ln -s `pwd`/$package-$version.tar.gz $tmp/SOURCES/$package-2.0.5_oml1.tar.gz
 rpmbuild -v -bb --clean $package.spec --define "_topdir $tmp" --nodeps
 find $tmp -type f -name "*.rpm" -exec cp -v {} . \;
 rm -rf $tmp
