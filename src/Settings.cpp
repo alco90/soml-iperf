@@ -131,13 +131,16 @@ const struct option long_options[] =
 
 #ifdef HAVE_LIBOML2
 // prevent iperf from complainig about oml parameters
+{"oml-file",      required_argument, NULL, OML_OPTION},
 {"oml-id",        required_argument, NULL, OML_OPTION},
 {"oml-exp-id",    required_argument, NULL, OML_OPTION},
-{"oml-file",      required_argument, NULL, OML_OPTION},
 {"oml-server",    required_argument, NULL, OML_OPTION},
 {"oml-config",    required_argument, NULL, OML_OPTION},
 {"oml-samples",   required_argument, NULL, OML_OPTION},
 {"oml-interval",  required_argument, NULL, OML_OPTION},
+{"oml-text",            no_argument, NULL, OML_OPTION},
+{"oml-binary",          no_argument, NULL, OML_OPTION},
+{"oml-bufsize",   required_argument, NULL, OML_OPTION},
 {"oml-log-file",  required_argument, NULL, OML_OPTION},
 {"oml-log-level", required_argument, NULL, OML_OPTION},
 {"oml-noop ",           no_argument, NULL, OML_OPTION},
