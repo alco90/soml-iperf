@@ -67,67 +67,67 @@ packets via various transports, such as TCP and UDP.
 		'-Z', {:type => :boolean, :dynamic => false})
 
   a.defMeasurement("application"){ |m|
-    m.defMetric('pid', :long, 'Main process identifier')
+    m.defMetric('pid', :integer, 'Main process identifier')
     m.defMetric('version', :string, 'Iperf version')
     m.defMetric('cmdline', :string, 'Iperf invocation command line')
-    m.defMetric('starttime_s', :long, 'Time the application was received (s)')
-    m.defMetric('starttime_us', :long, 'Time the application was received (us)')
+    m.defMetric('starttime_s', :integer, 'Time the application was received (s)')
+    m.defMetric('starttime_us', :integer, 'Time the application was received (us)')
   }
 
   a.defMeasurement("settings"){ |m|
-    m.defMetric('pid', :long, 'Main process identifier')
-    m.defMetric('server_mode', :long, '1 if in server mode, 0 otherwise')
+    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('server_mode', :integer, '1 if in server mode, 0 otherwise')
     m.defMetric('bind_address', :string, 'Address to bind')
-    m.defMetric('multicast', :long, '1 if listening to a Multicast group')
-    m.defMetric('multicast_ttl', :long, 'Multicast TTL if relevant')
-    m.defMetric('transport_protocol', :long, 'Transport protocol (IANA number)')
-    m.defMetric('window_size', :long, 'TCP window size')
-    m.defMetric('buffer_size', :long, 'UDP buffer size')
+    m.defMetric('multicast', :integer, '1 if listening to a Multicast group')
+    m.defMetric('multicast_ttl', :integer, 'Multicast TTL if relevant')
+    m.defMetric('transport_protocol', :integer, 'Transport protocol (IANA number)')
+    m.defMetric('window_size', :integer, 'TCP window size')
+    m.defMetric('buffer_size', :integer, 'UDP buffer size')
   }
 
   a.defMeasurement("connection"){ |m|
-    m.defMetric('pid', :long, 'Main process identifier')
-    m.defMetric('connection_id', :long, 'Connection identifier (socket)')
+    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('local_address', :string, 'Local network address')
-    m.defMetric('local_port', :long, 'Local port')
+    m.defMetric('local_port', :integer, 'Local port')
     m.defMetric('remote_address', :string, 'Remote network address')
-    m.defMetric('remote_port', :long, 'Remote port')
+    m.defMetric('remote_port', :integer, 'Remote port')
   }
 
   a.defMeasurement("transfer"){ |m|
-    m.defMetric('pid', :long, 'Main process identifier')
-    m.defMetric('connection_id', :long, 'Connection identifier (socket)')
+    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
     m.defMetric('end_interval', :float, 'End of the averaging interval (Iperf timestamp)')
-    m.defMetric('size', :long, 'Amount of transmitted data [Bytes]')
+    m.defMetric('size', :uint32, 'Amount of transmitted data [Bytes]')
   }
 
   a.defMeasurement("losses"){ |m|
-    m.defMetric('pid', :long, 'Main process identifier')
-    m.defMetric('connection_id', :long, 'Connection identifier (socket)')
+    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
     m.defMetric('end_interval', :float, 'End of the averaging interval (Iperf timestamp)')
-    m.defMetric('total_datagrams', :long, 'Total number of datagrams')
-    m.defMetric('lost_datagrams', :long, 'Number of lost datagrams')
+    m.defMetric('total_datagrams', :integer, 'Total number of datagrams')
+    m.defMetric('lost_datagrams', :integer, 'Number of lost datagrams')
   }
 
   a.defMeasurement("jitter"){ |m|
-    m.defMetric('pid', :long, 'Main process identifier')
-    m.defMetric('connection_id', :long, 'Connection identifier (socket)')
+    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
     m.defMetric('end_interval', :float, 'End of the averaging interval (Iperf timestamp)')
     m.defMetric('jitter', :float, 'Average jitter [ms]')
   }
 
   a.defMeasurement("packets"){ |m|
-    m.defMetric('pid', :long, 'Main process identifier')
-    m.defMetric('connection_id', :long, 'Connection identifier (socket)')
-    m.defMetric('packet_id', :long, 'Packet sequence number for datagram-oriented protocols')
-    m.defMetric('packet_size', :long, 'Packet size')
-    m.defMetric('packet_time_s', :long, 'Time the packet was processed (s)')
-    m.defMetric('packet_time_us', :long, 'Time the packet was processed (us)')
-    m.defMetric('packet_sent_time_s', :long, 'Time the packet was sent (s) for datagram-oriented protocols')
-    m.defMetric('packet_sent_time_us', :long, 'Time the packet was sent (us) for datagram-oriented protocols')
+    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('packet_id', :integer, 'Packet sequence number for datagram-oriented protocols')
+    m.defMetric('packet_size', :integer, 'Packet size')
+    m.defMetric('packet_time_s', :integer, 'Time the packet was processed (s)')
+    m.defMetric('packet_time_us', :integer, 'Time the packet was processed (us)')
+    m.defMetric('packet_sent_time_s', :integer, 'Time the packet was sent (s) for datagram-oriented protocols')
+    m.defMetric('packet_sent_time_us', :integer, 'Time the packet was sent (us) for datagram-oriented protocols')
   }
 
 end
