@@ -9,5 +9,5 @@ DISTCLEANFILES = $(top_builddir)/include/iperf-int.h
 CLEANFILES = $(oml_FILES)
 BUILT_SOURCES = $(oml_FILES)
 
-$(top_builddir)/include/iperf_oml.h: $(top_srcdir)/oml/iperf.app.in
+$(top_builddir)/include/iperf_oml.h: $(top_srcdir)/oml/iperf.rb.in
 	oml2_scaffold -f --oml $<
