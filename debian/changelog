@@ -1,3 +1,9 @@
+oml2-iperf (2.0.5-1ubuntu2) oneiric; urgency=low
+
+  * new iperf app definition for OMF 5.4
+
+ -- Christoph Dwertmann <christoph.dwertmann@nicta.com.au>  Wed, 21 Mar 2012 17:40:43 +1100
+
 oml2-iperf (2.0.5-1ubuntu1) oneiric; urgency=low
 
   * Oneiric build
