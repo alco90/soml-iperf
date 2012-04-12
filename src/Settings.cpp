@@ -717,7 +717,11 @@ void Settings_Interpret( char option, const char *optarg, thread_Settings *mExtS
 
 #ifdef HAVE_LIBOML2
 	case OML_OPTION:
-	    // nothing to be done here
+	    if(mExtSettings->mReportMode==kReport_Default) {
+		    fprintf( stderr, "A --oml-* option was found, assuming reportstyle is 'o'\n");
+		    mExtSettings->mReportMode = kReport_OML;
+	    }
+            break;
 #endif
 
         default: // ignore unknown
