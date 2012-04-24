@@ -608,7 +608,10 @@ again:
                     goto again;
             }
             Condition_Signal( &ReportDoneCond );
-            usleep(10000);
+#ifdef HAVE_LIBOML2
+		if(thread-> mReportMode != kReport_OML_full)
+#endif
+			usleep(10000);
         } else {
             //Condition_Unlock ( ReportCond );
         }
