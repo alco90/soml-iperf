@@ -1,3 +1,9 @@
+oml2-iperf (2.0.5-1ubuntu3) oneiric; urgency=low
+
+  * fix for the OML_LONG_VALUE depreciation message
+
+ -- Christoph Dwertmann <christoph.dwertmann@nicta.com.au>  Tue, 03 Jul 2012 08:18:17 +1000
+
 oml2-iperf (2.0.5-1ubuntu2) oneiric; urgency=low
 
   * new iperf app definition for OMF 5.4
