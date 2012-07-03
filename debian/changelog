@@ -1,3 +1,9 @@
+oml2-iperf (2.0.5-1ubuntu4) oneiric; urgency=low
+
+  * 'size' is now a uint64 value
+
+ -- Christoph Dwertmann <christoph.dwertmann@nicta.com.au>  Wed, 04 Jul 2012 06:30:49 +1000
+
 oml2-iperf (2.0.5-1ubuntu3) oneiric; urgency=low
 
   * fix for the OML_LONG_VALUE depreciation message

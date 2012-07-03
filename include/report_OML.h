@@ -48,7 +48,7 @@ void OML_inject_connection(int ID, const char *local_addr, int local_port,
 		const char *remote_addr, int remote_port);
 void OML_inject_settings(int server_mode, const char *bind_addr, int multicast, int mcast_ttl,
 		int proto, int window_size, int buffer_size);
-void OML_inject_transfer(int ID, double begin_interval, double end_interval, int size);
+void OML_inject_transfer(int ID, double begin_interval, double end_interval, max_size_t size);
 void OML_inject_losses(int ID, double begin_interval, double end_interval,
 		int total_datagrams, int lost_datagrams);
 void OML_inject_jitter(int ID, double begin_interval, double end_interval, double jitter);

@@ -112,14 +112,14 @@ void OML_inject_settings(int server_mode, const char *bind_addr, int multicast, 
 	omlc_inject(g_oml_mps->settings, v);
 }
 
-void OML_inject_transfer(int ID, double begin_interval, double end_interval, int size) {
+void OML_inject_transfer(int ID, double begin_interval, double end_interval, max_size_t size) {
 	OmlValueU v[5];
 
 	omlc_set_uint32(v[0], OML_main_iperf_pid);
 	omlc_set_uint32(v[1], ID);
 	omlc_set_double(v[2], begin_interval);
 	omlc_set_double(v[3], end_interval);
-	omlc_set_uint32(v[4], size);
+	omlc_set_uint64(v[4], size);
 
 	omlc_inject(g_oml_mps->transfer, v);
 }

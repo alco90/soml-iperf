@@ -99,7 +99,7 @@ packets via various transports, such as TCP and UDP.
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
     m.defMetric('end_interval', :float, 'End of the averaging interval (Iperf timestamp)')
-    m.defMetric('size', :uint32, 'Amount of transmitted data [Bytes]')
+    m.defMetric('size', :uint64, 'Amount of transmitted data [Bytes]')
   }
 
   a.defMeasurement("losses"){ |m|
