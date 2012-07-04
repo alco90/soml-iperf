@@ -161,9 +161,9 @@ const double kConversionForBits[] =
 const char* kLabel_Byte[] =
 {
     "Byte",
-    "KByte",
-    "MByte",
-    "GByte"
+    "KiByte",
+    "MiByte",
+    "GiByte"
 };
 
 /* labels for bit formats [kmg] */

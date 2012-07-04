@@ -29,7 +29,7 @@ traffic).
 .SH "GENERAL OPTIONS"
 .TP
 .BR -f ", " --format " "
-[kmKM]   format to report: Kbits, Mbits, KBytes, MBytes
+[kmgKMG]   format to report: Kbits, Mbits, Gbits, KiBytes, MiBytes, GiBytes
 .TP
 .BR -h ", " --help " "
 print a help synopsis
@@ -38,7 +38,7 @@ print a help synopsis
 pause \fIn\fR seconds between periodic bandwidth reports
 .TP
 .BR -l ", " --len " \fIn\fR[KM]"
-set length read/write buffer to \fIn\fR (default 8 KB)
+set length read/write buffer to \fIn\fR (default 8 KiB)
 .TP
 .BR -m ", " --print_mss " "
 print TCP maximum segment size (MTU - TCP/IP header)

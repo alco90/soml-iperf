@@ -131,9 +131,9 @@ we will try to fix them quickly. <BR>
       Supported formats are&nbsp; 
 	<PRE>
 &nbsp;&nbsp;&nbsp; 'b' = bits/sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'B' = Bytes/sec
-&nbsp;&nbsp;&nbsp; 'k' = Kbits/sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'K' = KBytes/sec
-&nbsp;&nbsp;&nbsp; 'm' = Mbits/sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'M' = MBytes/sec
-&nbsp;&nbsp;&nbsp; 'g' = Gbits/sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'G' = GBytes/sec
+&nbsp;&nbsp;&nbsp; 'k' = Kbits/sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'K' = KiBytes/sec
+&nbsp;&nbsp;&nbsp; 'm' = Mbits/sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'M' = MiBytes/sec
+&nbsp;&nbsp;&nbsp; 'g' = Gbits/sec&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'G' = GiBytes/sec
 &nbsp;&nbsp;&nbsp; 'a' = adaptive bits/sec&nbsp;&nbsp; 'A' = adaptive Bytes/sec
 	</PRE>
 	The adaptive formats choose between kilo- and mega- as appropriate. Fields 
@@ -153,7 +153,7 @@ we will try to fix them quickly. <BR>
     <TD><A name=len></A><TT>-l, --len <I>#[KM]</I></TT></TD>
     <TD><TT>$IPERF_LEN</TT></TD>
     <TD>The length of buffers to read or write. Iperf works by writing an 
-      array of <I>len</I> bytes a number of times. Default is 8 KB for TCP, 1470 
+      array of <I>len</I> bytes a number of times. Default is 8 KiB for TCP, 1470 
       bytes for UDP. Note for UDP, this is the datagram size and needs to be lowered when using
       IPv6 addressing to 1450 or less to avoid fragmentation. See also the <A 
       href="#num">-n</A> 
@@ -381,12 +381,12 @@ TCP window size is the <I>bandwidth delay product</I>,
 modi4/cyclops example, the bottleneck link is a 45 Mbit/sec DS3 link and the 
 round trip time measured with ping is 42 ms. The bandwidth delay product is 
 <BLOCKQUOTE>45 Mbit/sec * 42 ms <BR>= (45e6) * (42e-3) <BR>= 1890000 bits 
-  <BR>= 230 KByte</BLOCKQUOTE>That is a starting point for figuring the best 
+  <BR>= 230 KiByte</BLOCKQUOTE>That is a starting point for figuring the best 
 window size; setting it higher or lower may produce better results. In our 
 example, buffer sizes over 130K did not improve the performance, despite the 
 bandwidth delay product of 230K. 
 <P>Note that many OSes and hosts have upper limits on the TCP window size. These 
-may be as low as 64 KB, or as high as several MB. Iperf tries to detect when 
+may be as low as 64 KiB, or as high as several MiB. Iperf tries to detect when 
 these occur and give a warning that the actual and requested window sizes are 
 not equal (as below, though that is due to rounding in IRIX). PSC has a <A 
 href="http://www.psc.edu/networking/perf_tune.html">list detailing</A> how to 
@@ -404,38 +404,38 @@ window sizes in the granularity of bytes.
 <B>node2&gt;</B> iperf -s
 ------------------------------------------------------------
 Server listening on TCP port 5001
-TCP window size: 60.0 KByte (default)
+TCP window size: 60.0 KiByte (default)
 ------------------------------------------------------------
 [&nbsp; 4] local &lt;IP Addr node2&gt; port 5001 connected with &lt;IP Addr node1&gt; port 2357
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 4]&nbsp; 0.0-10.1 sec&nbsp;&nbsp; 6.5 MBytes&nbsp;&nbsp; <B><FONT color=#ff0000>5.2 Mbits/sec
+[&nbsp; 4]&nbsp; 0.0-10.1 sec&nbsp;&nbsp; 6.5 MiBytes&nbsp;&nbsp; <B><FONT color=#ff0000>5.2 Mbits/sec
 
 </FONT>node1&gt;</B> iperf -c node2
 ------------------------------------------------------------
 Client connecting to node1, TCP port 5001
-TCP window size: 59.9 KByte (default)
+TCP window size: 59.9 KiByte (default)
 ------------------------------------------------------------
 [&nbsp; 3] local &lt;IP Addr node1&gt; port 2357 connected with &lt;IP Addr node2&gt; port 5001
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 3]&nbsp; 0.0-10.0 sec&nbsp;&nbsp; 6.5 MBytes&nbsp;&nbsp; 5.2 Mbits/sec</PRE>
+[&nbsp; 3]&nbsp; 0.0-10.0 sec&nbsp;&nbsp; 6.5 MiBytes&nbsp;&nbsp; 5.2 Mbits/sec</PRE>
   <HR>
 <PRE><B>node2&gt;</B> iperf -s -w 130k
 ------------------------------------------------------------
 Server listening on TCP port 5001
-TCP window size:&nbsp; 130 KByte
+TCP window size:&nbsp; 130 KiByte
 ------------------------------------------------------------
 [&nbsp; 4] local &lt;IP Addr node 2&gt; port 5001 connected with &lt;IP Addr node 1&gt; port 2530
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 4]&nbsp; 0.0-10.1 sec&nbsp; 19.7 MBytes&nbsp; <B><FONT color=#ff0000>15.7 Mbits/sec
+[&nbsp; 4]&nbsp; 0.0-10.1 sec&nbsp; 19.7 MiBytes&nbsp; <B><FONT color=#ff0000>15.7 Mbits/sec
 
 </FONT>node1&gt;</B> iperf -c node2 -w 130k
 ------------------------------------------------------------
 Client connecting to node2, TCP port 5001
-TCP window size:&nbsp; 129 KByte (WARNING: requested&nbsp; 130 KByte)
+TCP window size:&nbsp; 129 KiByte (WARNING: requested&nbsp; 130 KiByte)
 ------------------------------------------------------------
 [&nbsp; 3] local &lt;IP Addr node1&gt; port 2530 connected with &lt;IP Addr node2&gt; port 5001
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 3]&nbsp; 0.0-10.0 sec&nbsp; 19.7 MBytes&nbsp; 15.8 Mbits/sec</PRE></BLOCKQUOTE>Another 
+[&nbsp; 3]&nbsp; 0.0-10.0 sec&nbsp; 19.7 MiBytes&nbsp; 15.8 Mbits/sec</PRE></BLOCKQUOTE>Another 
 test to do is run parallel TCP streams. If the total aggregate bandwidth is more 
 than what an individual stream gets, something is wrong. Either the TCP window 
 size is too small, or the OS's TCP implementation has bugs, or the network 
@@ -448,37 +448,37 @@ large TCP window sizes:
 <BLOCKQUOTE><PRE><B>node2&gt;</B> iperf -s -w 300k
 ------------------------------------------------------------
 Server listening on TCP port 5001
-TCP window size:&nbsp; 300 KByte
+TCP window size:&nbsp; 300 KiByte
 ------------------------------------------------------------
 [&nbsp; 4] local &lt;IP Addr node2&gt; port 5001 connected with &lt;IP Addr node1&gt; port 6902
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 4]&nbsp; 0.0-10.2 sec&nbsp; 20.9 MBytes&nbsp; <B><FONT color=#ff0000>16.5 Mbits/sec
+[&nbsp; 4]&nbsp; 0.0-10.2 sec&nbsp; 20.9 MiBytes&nbsp; <B><FONT color=#ff0000>16.5 Mbits/sec
 
 </FONT></B>[&nbsp; 4] local &lt;IP Addr node2&gt; port 5001 connected with &lt;IP Addr node1&gt; port 6911
 [&nbsp; 5] local &lt;IP Addr node2&gt; port 5001 connected with &lt;IP Addr node2&gt; port 6912
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 5]&nbsp; 0.0-10.1 sec&nbsp; 21.0 MBytes&nbsp; <B><FONT color=#ff0000>16.7 Mbits/sec
-</FONT></B>[&nbsp; 4]&nbsp; 0.0-10.3 sec&nbsp; 12.0 MBytes&nbsp;&nbsp;<B><FONT color=#ff0000> 9.4 Mbits/sec
+[&nbsp; 5]&nbsp; 0.0-10.1 sec&nbsp; 21.0 MiBytes&nbsp; <B><FONT color=#ff0000>16.7 Mbits/sec
+</FONT></B>[&nbsp; 4]&nbsp; 0.0-10.3 sec&nbsp; 12.0 MiBytes&nbsp;&nbsp;<B><FONT color=#ff0000> 9.4 Mbits/sec
 
 </FONT>node1&gt;</B> ./iperf -c node2 -w 300k
 ------------------------------------------------------------
 Client connecting to node2, TCP port 5001
-TCP window size:&nbsp; 299 KByte (WARNING: requested&nbsp; 300 KByte)
+TCP window size:&nbsp; 299 KiByte (WARNING: requested&nbsp; 300 KiByte)
 ------------------------------------------------------------
 [&nbsp; 3] local &lt;IP Addr node2&gt; port 6902 connected with &lt;IP Addr node1&gt; port 5001
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 3]&nbsp; 0.0-10.2 sec&nbsp; 20.9 MBytes&nbsp; 16.4 Mbits/sec
+[&nbsp; 3]&nbsp; 0.0-10.2 sec&nbsp; 20.9 MiBytes&nbsp; 16.4 Mbits/sec
 
 <B>node1&gt;</B> iperf -c node2 -w 300k -P 2
 ------------------------------------------------------------
 Client connecting to node2, TCP port 5001
-TCP window size:&nbsp; 299 KByte (WARNING: requested&nbsp; 300 KByte)
+TCP window size:&nbsp; 299 KiByte (WARNING: requested&nbsp; 300 KiByte)
 ------------------------------------------------------------
 [&nbsp; 4] local &lt;IP Addr node2&gt; port 6912 connected with &lt;IP Addr node1&gt; port 5001
 [&nbsp; 3] local &lt;IP Addr node2&gt; port 6911 connected with &lt;IP Addr node1&gt; port 5001
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 4]&nbsp; 0.0-10.1 sec&nbsp; 21.0 MBytes&nbsp; 16.6 Mbits/sec
-[&nbsp; 3]&nbsp; 0.0-10.2 sec&nbsp; 12.0 MBytes&nbsp;&nbsp; 9.4 Mbits/sec</PRE></BLOCKQUOTE>A 
+[&nbsp; 4]&nbsp; 0.0-10.1 sec&nbsp; 21.0 MiBytes&nbsp; 16.6 Mbits/sec
+[&nbsp; 3]&nbsp; 0.0-10.2 sec&nbsp; 12.0 MiBytes&nbsp;&nbsp; 9.4 Mbits/sec</PRE></BLOCKQUOTE>A 
 secondary tuning issue for TCP is the maximum transmission unit (MTU). To be 
 most effective, both hosts should support Path MTU Discovery. PSC has a <A 
 href="http://www.psc.edu/networking/perf_tune.html">list detailing</A> what OSes 
@@ -489,11 +489,11 @@ it is around 1460 bytes for ethernet.
 <BLOCKQUOTE><PRE><B>node3&gt;</B> iperf -s -m
 ------------------------------------------------------------
 Server listening on TCP port 5001
-TCP window size: 60.0 KByte (default)
+TCP window size: 60.0 KiByte (default)
 ------------------------------------------------------------
 [&nbsp; 4] local &lt;IP Addr node3&gt; port 5001 connected with &lt;IP Addr node4&gt; port 1096
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 4]&nbsp; 0.0- 2.0 sec&nbsp;&nbsp; 1.8 MBytes&nbsp;&nbsp; 6.9 Mbits/sec
+[&nbsp; 4]&nbsp; 0.0- 2.0 sec&nbsp;&nbsp; 1.8 MiBytes&nbsp;&nbsp; 6.9 Mbits/sec
 [&nbsp; 4] <B><FONT color=#ff0000>MSS size 1448 bytes (MTU 1500 bytes, ethernet)
 </FONT></B>[&nbsp; 4] Read lengths occurring in more than 5% of reads:
 [&nbsp; 4]&nbsp;&nbsp; 952 bytes read&nbsp;&nbsp; 219 times (16.2%)
@@ -503,11 +503,11 @@ small 576 byte packets.
 <BLOCKQUOTE><PRE><B>node4&gt;</B> iperf -s -m
 ------------------------------------------------------------
 Server listening on TCP port 5001
-TCP window size: 32.0 KByte (default)
+TCP window size: 32.0 KiByte (default)
 ------------------------------------------------------------
 [&nbsp; 4] local &lt;IP Addr node4&gt; port 5001 connected with &lt;IP Addr node3&gt; port 13914
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 4]&nbsp; 0.0- 2.3 sec&nbsp;&nbsp; 632 KBytes&nbsp;&nbsp; 2.1 Mbits/sec
+[&nbsp; 4]&nbsp; 0.0- 2.3 sec&nbsp;&nbsp; 632 KiBytes&nbsp;&nbsp; 2.1 Mbits/sec
 <B><FONT color=#ff0000>WARNING: Path MTU Discovery may not be enabled.
 </FONT></B>[&nbsp; 4] <B><FONT color=#ff0000>MSS size 536 bytes (MTU 576 bytes, minimum)
 </FONT></B>[&nbsp; 4] Read lengths occurring in more than 5% of reads:
@@ -550,32 +550,32 @@ is the smoothed mean of differences between consecutive transit times.
 ------------------------------------------------------------
 Server listening on UDP port 5001
 Receiving 1470 byte datagrams
-UDP buffer size: 60.0 KByte (default)
+UDP buffer size: 60.0 KiByte (default)
 ------------------------------------------------------------
 [&nbsp; 4] local &lt;IP Addr node2&gt; port 5001 connected with &lt;IP Addr node1&gt; port 9726
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jitter&nbsp;&nbsp; Lost/Total Datagrams
-[&nbsp; 4]&nbsp; 0.0- 1.0 sec&nbsp;&nbsp; 1.3 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.209 ms&nbsp;&nbsp;&nbsp; 1/&nbsp; 894 (0.11%)
-[&nbsp; 4]&nbsp; 1.0- 2.0 sec&nbsp;&nbsp; 1.3 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.221 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
-[&nbsp; 4]&nbsp; 2.0- 3.0 sec&nbsp;&nbsp; 1.3 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.277 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
-[&nbsp; 4]&nbsp; 3.0- 4.0 sec&nbsp;&nbsp; 1.3 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.359 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 893 (0%)
-[&nbsp; 4]&nbsp; 4.0- 5.0 sec&nbsp;&nbsp; 1.3 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.251 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
-[&nbsp; 4]&nbsp; 5.0- 6.0 sec&nbsp;&nbsp; 1.3 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.215 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
-[&nbsp; 4]&nbsp; 6.0- 7.0 sec&nbsp;&nbsp; 1.3 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.325 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
-[&nbsp; 4]&nbsp; 7.0- 8.0 sec&nbsp;&nbsp; 1.3 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.254 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
-[&nbsp; 4]&nbsp; 8.0- 9.0 sec&nbsp;&nbsp; 1.3 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.282 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
-[&nbsp; 4]&nbsp; 0.0-10.0 sec&nbsp; 12.5 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.243 ms&nbsp;&nbsp;&nbsp; 1/ 8922 (0.011%)
+[&nbsp; 4]&nbsp; 0.0- 1.0 sec&nbsp;&nbsp; 1.3 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.209 ms&nbsp;&nbsp;&nbsp; 1/&nbsp; 894 (0.11%)
+[&nbsp; 4]&nbsp; 1.0- 2.0 sec&nbsp;&nbsp; 1.3 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.221 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
+[&nbsp; 4]&nbsp; 2.0- 3.0 sec&nbsp;&nbsp; 1.3 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.277 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
+[&nbsp; 4]&nbsp; 3.0- 4.0 sec&nbsp;&nbsp; 1.3 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.359 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 893 (0%)
+[&nbsp; 4]&nbsp; 4.0- 5.0 sec&nbsp;&nbsp; 1.3 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.251 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
+[&nbsp; 4]&nbsp; 5.0- 6.0 sec&nbsp;&nbsp; 1.3 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.215 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
+[&nbsp; 4]&nbsp; 6.0- 7.0 sec&nbsp;&nbsp; 1.3 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.325 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
+[&nbsp; 4]&nbsp; 7.0- 8.0 sec&nbsp;&nbsp; 1.3 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.254 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
+[&nbsp; 4]&nbsp; 8.0- 9.0 sec&nbsp;&nbsp; 1.3 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.282 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 892 (0%)
+[&nbsp; 4]&nbsp; 0.0-10.0 sec&nbsp; 12.5 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.243 ms&nbsp;&nbsp;&nbsp; 1/ 8922 (0.011%)
 
 <B>node1&gt;</B> iperf -c node2 -u -b 10m
 ------------------------------------------------------------
 Client connecting to node2, UDP port 5001
 Sending 1470 byte datagrams
-UDP buffer size: 60.0 KByte (default)
+UDP buffer size: 60.0 KiByte (default)
 ------------------------------------------------------------
 [&nbsp; 3] local &lt;IP Addr node1&gt; port 9726 connected with &lt;IP Addr node2&gt; port 5001
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 3]&nbsp; 0.0-10.0 sec&nbsp; 12.5 MBytes&nbsp; 10.0 Mbits/sec
+[&nbsp; 3]&nbsp; 0.0-10.0 sec&nbsp; 12.5 MiBytes&nbsp; 10.0 Mbits/sec
 [&nbsp; 3] Sent 8922 datagrams</PRE></BLOCKQUOTE>Notice the higher jitter due to 
-datagram reassembly when using larger 32 KB datagrams, each split into 23 
+datagram reassembly when using larger 32 KiB datagrams, each split into 23 
 packets of 1500 bytes. The higher datagram loss seen here may be due to the 
 burstiness of the traffic, which is 23 back-to-back packets and then a long 
 pause, rather than evenly spaced individual packets. 
@@ -583,31 +583,31 @@ pause, rather than evenly spaced individual packets.
 ------------------------------------------------------------
 Server listening on UDP port 5001
 Receiving 32768 byte datagrams
-UDP buffer size:&nbsp; 128 KByte
+UDP buffer size:&nbsp; 128 KiByte
 ------------------------------------------------------------
 [&nbsp; 3] local &lt;IP Addr node2&gt; port 5001 connected with &lt;IP Addr node1&gt; port 11303
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jitter&nbsp;&nbsp; Lost/Total Datagrams
-[&nbsp; 3]&nbsp; 0.0- 1.0 sec&nbsp;&nbsp; 1.3 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.430 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 41 (0%)
-[&nbsp; 3]&nbsp; 1.0- 2.0 sec&nbsp;&nbsp; 1.1 MBytes&nbsp;&nbsp; 8.5 Mbits/sec&nbsp; 5.996 ms&nbsp;&nbsp;&nbsp; 6/&nbsp;&nbsp; 40 (15%)
-[&nbsp; 3]&nbsp; 2.0- 3.0 sec&nbsp;&nbsp; 1.2 MBytes&nbsp;&nbsp; 9.7 Mbits/sec&nbsp; 0.796 ms&nbsp;&nbsp;&nbsp; 1/&nbsp;&nbsp; 40 (2.5%)
-[&nbsp; 3]&nbsp; 3.0- 4.0 sec&nbsp;&nbsp; 1.2 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.403 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
-[&nbsp; 3]&nbsp; 4.0- 5.0 sec&nbsp;&nbsp; 1.2 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.448 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
-[&nbsp; 3]&nbsp; 5.0- 6.0 sec&nbsp;&nbsp; 1.2 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.464 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
-[&nbsp; 3]&nbsp; 6.0- 7.0 sec&nbsp;&nbsp; 1.2 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.442 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
-[&nbsp; 3]&nbsp; 7.0- 8.0 sec&nbsp;&nbsp; 1.2 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.342 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
-[&nbsp; 3]&nbsp; 8.0- 9.0 sec&nbsp;&nbsp; 1.2 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.431 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
-[&nbsp; 3]&nbsp; 9.0-10.0 sec&nbsp;&nbsp; 1.2 MBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.407 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
-[&nbsp; 3]&nbsp; 0.0-10.0 sec&nbsp; 12.3 MBytes&nbsp;&nbsp; 9.8 Mbits/sec&nbsp; 0.407 ms&nbsp;&nbsp;&nbsp; 7/&nbsp; 401 (1.7%)
+[&nbsp; 3]&nbsp; 0.0- 1.0 sec&nbsp;&nbsp; 1.3 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.430 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 41 (0%)
+[&nbsp; 3]&nbsp; 1.0- 2.0 sec&nbsp;&nbsp; 1.1 MiBytes&nbsp;&nbsp; 8.5 Mbits/sec&nbsp; 5.996 ms&nbsp;&nbsp;&nbsp; 6/&nbsp;&nbsp; 40 (15%)
+[&nbsp; 3]&nbsp; 2.0- 3.0 sec&nbsp;&nbsp; 1.2 MiBytes&nbsp;&nbsp; 9.7 Mbits/sec&nbsp; 0.796 ms&nbsp;&nbsp;&nbsp; 1/&nbsp;&nbsp; 40 (2.5%)
+[&nbsp; 3]&nbsp; 3.0- 4.0 sec&nbsp;&nbsp; 1.2 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.403 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
+[&nbsp; 3]&nbsp; 4.0- 5.0 sec&nbsp;&nbsp; 1.2 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.448 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
+[&nbsp; 3]&nbsp; 5.0- 6.0 sec&nbsp;&nbsp; 1.2 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.464 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
+[&nbsp; 3]&nbsp; 6.0- 7.0 sec&nbsp;&nbsp; 1.2 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.442 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
+[&nbsp; 3]&nbsp; 7.0- 8.0 sec&nbsp;&nbsp; 1.2 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.342 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
+[&nbsp; 3]&nbsp; 8.0- 9.0 sec&nbsp;&nbsp; 1.2 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.431 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
+[&nbsp; 3]&nbsp; 9.0-10.0 sec&nbsp;&nbsp; 1.2 MiBytes&nbsp; 10.0 Mbits/sec&nbsp; 0.407 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 40 (0%)
+[&nbsp; 3]&nbsp; 0.0-10.0 sec&nbsp; 12.3 MiBytes&nbsp;&nbsp; 9.8 Mbits/sec&nbsp; 0.407 ms&nbsp;&nbsp;&nbsp; 7/&nbsp; 401 (1.7%)
 
 <B>node1&gt;</B> iperf -c node2 -b 10m -l 32k -w 128k
 ------------------------------------------------------------
 Client connecting to node2, UDP port 5001
 Sending 32768 byte datagrams
-UDP buffer size:&nbsp; 128 KByte
+UDP buffer size:&nbsp; 128 KiByte
 ------------------------------------------------------------
 [&nbsp; 3] local &lt;IP Addr node2&gt; port 11303 connected with &lt;IP Addr node1&gt; port 5001
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 3]&nbsp; 0.0-10.0 sec&nbsp; 12.5 MBytes&nbsp; 10.0 Mbits/sec
+[&nbsp; 3]&nbsp; 0.0-10.0 sec&nbsp; 12.5 MiBytes&nbsp; 10.0 Mbits/sec
 [&nbsp; 3] Sent 401 datagrams</PRE><PRE></PRE></BLOCKQUOTE>
 <P><A name=multicast></A>
 <B><FONT size=+1>Multicast</FONT></B> 
@@ -622,11 +622,11 @@ report (61 datagrams on arno below).
 Client connecting to 224.0.67.67, UDP port 5001
 Sending 1470 byte datagrams
 Setting multicast TTL to 5
-UDP buffer size: 32.0 KByte (default)
+UDP buffer size: 32.0 KiByte (default)
 ------------------------------------------------------------
 [&nbsp; 3] local &lt;IP Addr node5&gt; port 1025 connected with 224.0.67.67 port 5001
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth
-[&nbsp; 3]&nbsp; 0.0- 5.0 sec&nbsp;&nbsp; 642 KBytes&nbsp;&nbsp; 1.0 Mbits/sec
+[&nbsp; 3]&nbsp; 0.0- 5.0 sec&nbsp;&nbsp; 642 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec
 [&nbsp; 3] Sent 447 datagrams
 
 <B>node5&gt;</B> iperf -s -u -B 224.0.67.67 -i 1
@@ -635,16 +635,16 @@ Server listening on UDP port 5001
 Binding to local address 224.0.67.67
 Joining multicast group&nbsp; 224.0.67.67
 Receiving 1470 byte datagrams
-UDP buffer size: 32.0 KByte (default)
+UDP buffer size: 32.0 KiByte (default)
 ------------------------------------------------------------
 [&nbsp; 3] local 224.0.67.67 port 5001 connected with &lt;IP Addr node5&gt; port 1025
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jitter&nbsp;&nbsp; Lost/Total Datagrams
-[&nbsp; 3]&nbsp; 0.0- 1.0 sec&nbsp;&nbsp; 131 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.007 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 91 (0%)
-[&nbsp; 3]&nbsp; 1.0- 2.0 sec&nbsp;&nbsp; 128 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.008 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
-[&nbsp; 3]&nbsp; 2.0- 3.0 sec&nbsp;&nbsp; 128 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.010 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
-[&nbsp; 3]&nbsp; 3.0- 4.0 sec&nbsp;&nbsp; 128 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.013 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
-[&nbsp; 3]&nbsp; 4.0- 5.0 sec&nbsp;&nbsp; 128 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.008 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
-[&nbsp; 3]&nbsp; 0.0- 5.0 sec&nbsp;&nbsp; 642 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.008 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 447 (0%)
+[&nbsp; 3]&nbsp; 0.0- 1.0 sec&nbsp;&nbsp; 131 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.007 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 91 (0%)
+[&nbsp; 3]&nbsp; 1.0- 2.0 sec&nbsp;&nbsp; 128 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.008 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
+[&nbsp; 3]&nbsp; 2.0- 3.0 sec&nbsp;&nbsp; 128 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.010 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
+[&nbsp; 3]&nbsp; 3.0- 4.0 sec&nbsp;&nbsp; 128 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.013 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
+[&nbsp; 3]&nbsp; 4.0- 5.0 sec&nbsp;&nbsp; 128 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.008 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
+[&nbsp; 3]&nbsp; 0.0- 5.0 sec&nbsp;&nbsp; 642 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.008 ms&nbsp;&nbsp;&nbsp; 0/&nbsp; 447 (0%)
 
 <B>node6&gt;</B> iperf -s -u -B 224.0.67.67 -i 1
 ------------------------------------------------------------
@@ -652,15 +652,15 @@ Server listening on UDP port 5001
 Binding to local address 224.0.67.67
 Joining multicast group&nbsp; 224.0.67.67
 Receiving 1470 byte datagrams
-UDP buffer size: 60.0 KByte (default)
+UDP buffer size: 60.0 KiByte (default)
 ------------------------------------------------------------
 [&nbsp; 3] local 224.0.67.67 port 5001 connected with &lt;IP Addr node5&gt; port 1025
 [ ID] Interval&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Transfer&nbsp;&nbsp;&nbsp;&nbsp; Bandwidth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Jitter&nbsp;&nbsp; Lost/Total Datagrams
-[&nbsp; 3]&nbsp; 0.0- 1.0 sec&nbsp;&nbsp; 129 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.778 ms&nbsp;&nbsp; 61/&nbsp; 151 (40%)
-[&nbsp; 3]&nbsp; 1.0- 2.0 sec&nbsp;&nbsp; 128 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.236 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
-[&nbsp; 3]&nbsp; 2.0- 3.0 sec&nbsp;&nbsp; 128 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.264 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
-[&nbsp; 3]&nbsp; 3.0- 4.0 sec&nbsp;&nbsp; 128 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.248 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
-[&nbsp; 3]&nbsp; 0.0- 4.3 sec&nbsp;&nbsp; 554 KBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.298 ms&nbsp;&nbsp; 61/&nbsp; 447 (14%)</PRE><PRE><HR width="100%"></PRE></BLOCKQUOTE>
+[&nbsp; 3]&nbsp; 0.0- 1.0 sec&nbsp;&nbsp; 129 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.778 ms&nbsp;&nbsp; 61/&nbsp; 151 (40%)
+[&nbsp; 3]&nbsp; 1.0- 2.0 sec&nbsp;&nbsp; 128 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.236 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
+[&nbsp; 3]&nbsp; 2.0- 3.0 sec&nbsp;&nbsp; 128 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.264 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
+[&nbsp; 3]&nbsp; 3.0- 4.0 sec&nbsp;&nbsp; 128 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.248 ms&nbsp;&nbsp;&nbsp; 0/&nbsp;&nbsp; 89 (0%)
+[&nbsp; 3]&nbsp; 0.0- 4.3 sec&nbsp;&nbsp; 554 KiBytes&nbsp;&nbsp; 1.0 Mbits/sec&nbsp; 0.298 ms&nbsp;&nbsp; 61/&nbsp; 447 (14%)</PRE><PRE><HR width="100%"></PRE></BLOCKQUOTE>
 <P><A name=ipv6></A>
 <DL>
   <DT><B><FONT size=+2>IPv6 Mode</FONT></B> 
@@ -738,8 +738,8 @@ UDP buffer size: 60.0 KByte (default)
   <DT><B><FONT size=+2>Adaptive window sizes</FONT></B> 
   <DD>Use the -W option on the client to run the client with the adaptive window 
   size. Ensure that the server window size is fairly big for this 
-  option.<BR>E.g.. If the server TCP window size is 8KB, it does not help having 
-  a client TCP window size of 256KB.<BR>256KB Server TCP Window Size should 
+  option.<BR>E.g.. If the server TCP window size is 8KiB, it does not help having 
+  a client TCP window size of 256KiB.<BR>256KiB Server TCP Window Size should 
   suffice for most high bandwidth networks. 
   <P>Client changes the TCP window size using a binary exponential 
   algorithm. This means that you may notice that TCP window size suggested may 
