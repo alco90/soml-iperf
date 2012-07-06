@@ -280,6 +280,7 @@ AC_SUBST(STRIP_BEGIN)
 AC_SUBST(STRIP_END)
 AC_SUBST(LIBOML2_CFLAGS)
 AC_SUBST(LIBOML2_LIBS)
+AC_SUBST([installed_name], [`echo ${PACKAGE_NAME} | sed "${program_transform_name}"`])
 
 AM_CONDITIONAL([LIBOML2], [test x$ac_cv_have_liboml = xyes])
 
