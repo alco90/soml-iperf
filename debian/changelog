@@ -1,3 +1,9 @@
+oml2-iperf (2.0.5-1ubuntu5) oneiric; urgency=low
+
+  * iperf summary is not longer sent to OML
+
+ -- Christoph Dwertmann <christoph.dwertmann@nicta.com.au>  Sat, 07 Jul 2012 01:47:48 +1000
+
 oml2-iperf (2.0.5-1ubuntu4) oneiric; urgency=low
 
   * 'size' is now a uint64 value
