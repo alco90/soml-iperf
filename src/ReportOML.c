@@ -42,7 +42,7 @@
 
 // YUCK!
 // Only valid in this scope, though...
-pid_t OML_main_iperf_pid;
+static pid_t OML_main_iperf_pid;
 // Does it have to be this way?
 static double interval;
 
