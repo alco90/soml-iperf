@@ -43,6 +43,8 @@
 // YUCK!
 // Only valid in this scope, though...
 pid_t OML_main_iperf_pid;
+// Does it have to be this way?
+static double interval;
 
 int OML_init(int *argc, const char **argv) {
 	OML_main_iperf_pid = getpid();
@@ -50,6 +52,7 @@ int OML_init(int *argc, const char **argv) {
 }
 
 int OML_set_measurement_points(thread_Settings *mSettings) {
+	interval = mSettings->mInterval;
 	oml_register_mps();
 	return omlc_start();
 }
@@ -240,18 +243,22 @@ void OML_settings( ReporterData *data ) {
 }
 
 void OML_stats(Transfer_Info *stats) {
-	OML_inject_transfer(stats->transferID, stats->startTime, stats->endTime,
-			stats->TotalLen);
-	/* This should really be conditionned by whether the transport is
-	 * - unreliable and,
-	 * - datagram-oriented...
-	 */
-	if (stats->mUDP == (char)kMode_Server) {
-		OML_inject_losses(stats->transferID, stats->startTime, stats->endTime,
-				stats->cntDatagrams, stats->cntError);
-		OML_inject_jitter(stats->transferID, stats->startTime, stats->endTime,
-				stats->jitter * 1000.0);
+	/* Skip summary stats at the end when an interval has been defined */
+	if (interval <= 0. || (stats->endTime - stats->startTime <= interval)) {
+		OML_inject_transfer(stats->transferID, stats->startTime, stats->endTime,
+				stats->TotalLen);
+		/* This should really be conditionned by whether the transport is
+		 * - unreliable and,
+		 * - datagram-oriented...
+		 */
+		if (stats->mUDP == (char)kMode_Server) {
+			OML_inject_losses(stats->transferID, stats->startTime, stats->endTime,
+					stats->cntDatagrams, stats->cntError);
+			OML_inject_jitter(stats->transferID, stats->startTime, stats->endTime,
+					stats->jitter * 1000.0);
+		}
 	}
+
 }
 
 void OML_serverstats(Connection_Info *conn, Transfer_Info *stats) {
