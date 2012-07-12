@@ -1,4 +1,4 @@
-defApplication('iperf-5.4', 'iperf') do |a| 
+defApplication('oml:app:iperf', 'iperf') do |a| 
 
   a.path = "@bindir@/iperf"
   a.version(2, 0, 5)

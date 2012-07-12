@@ -1,4 +1,7 @@
-defApplication('iperf-5.3', 'iperf') do |a| 
+# Application description for Iperf, provided for convenience for users of OMF
+# 5.3.
+# Please refer to iperf.rb for the current, up-to-date description.
+defApplication('oml:app:iperf', 'iperf') do |a| 
 
   a.path = "@bindir@/iperf"
   a.version(2, 0, 5)
