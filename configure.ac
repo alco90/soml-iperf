@@ -4,8 +4,8 @@ dnl Process this file with autogen.sh to produce configure files
 dnl ===================================================================
 
 
-AC_PREREQ(2.59)
-AC_INIT(iperf,2.0.5+oml1)
+AC_PREREQ(2.69)
+AC_INIT([iperf],[2.0.5+oml1],[oml-user@lists.nicta.com.au])
 AC_CONFIG_HEADER([config.h])
 AM_INIT_AUTOMAKE()
 
