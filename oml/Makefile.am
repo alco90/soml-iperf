@@ -9,6 +9,10 @@ pkgdata_DATA = iperf-5.3.rb iperf.rb
 install-data-hook:
 	cd $(DESTDIR)$(pkgdatadir) && \
 		$(LN_S) iperf.rb iperf-5.4.rb
+uninstall-hook:
+	rm -f $(DESTDIR)$(pkgdatadir)/iperf.rb
+	rm -f $(DESTDIR)$(pkgdatadir)/iperf-5.3.rb
+	rm -f $(DESTDIR)$(pkgdatadir)/iperf-5.4.rb
 else !LIBOML2
 pkgdata_DATA =
 endif !LIBOML2
