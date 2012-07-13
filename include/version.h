@@ -1,4 +1,4 @@
-#define OML_VERSION "1"
-#define OML_VERSION_DATE "14 Mar 2012"
-#define IPERF_VERSION "2.0.5+oml" OML_VERSION
+#include <config.h>
+#define OML_VERSION_DATE	GIT_DATE
+#define IPERF_VERSION		PACKAGE_VERSION
 #define IPERF_VERSION_DATE "08 Jul 2010 [" OML_VERSION_DATE "]" 

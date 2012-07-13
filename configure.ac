@@ -249,6 +249,16 @@ if test "$enable_liboml" != no; then
 	)
 fi
 
+AS_IF([test -e $srcdir/.git],[
+	git_date=`git log --format="%cD" HEAD^..HEAD`
+	git_rev=`git log --format="%t" HEAD^..HEAD`
+	],[
+	git_date="No Git information"
+	git_rev=""
+	])
+AC_DEFINE_UNQUOTED([GIT_DATE], ["$git_date"], [Date of the last commit on the Git HEAD])
+AC_DEFINE_UNQUOTED([GIT_REV], ["$git_rev"], [Git HEAD revision])
+
 if test "$enable_web100" != no; then
 if test -e "/proc/web100"; then
 if test -d "/proc/web100"; then
