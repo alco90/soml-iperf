@@ -105,10 +105,10 @@ void SetSocketOptions( thread_Settings *inSettings ) {
 #endif
     }
 
+#ifdef HAVE_MULTICAST
     // check if we're sending multicast, and set TTL
     if ( isMulticast( inSettings ) && ( inSettings->mTTL > 0 ) ) {
 	int val = inSettings->mTTL;
-#ifdef HAVE_MULTICAST
 	if ( !SockAddr_isIPv6( &inSettings->local ) ) {
 	    int rc = setsockopt( inSettings->mSock, IPPROTO_IP, IP_MULTICAST_TTL,
 		    (const void*) &val, (Socklen_t) sizeof(val));
@@ -122,8 +122,8 @@ void SetSocketOptions( thread_Settings *inSettings ) {
 	    WARN_errno( rc == SOCKET_ERROR, "multicast ttl" );
 	}
 #endif
-#endif
     }
+#endif
 
 
 #ifdef IP_TOS
