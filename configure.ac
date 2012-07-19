@@ -5,7 +5,7 @@ dnl ===================================================================
 
 
 AC_PREREQ(2.69)
-AC_INIT([iperf],[2.0.5+oml2.8.0],[oml-user@lists.nicta.com.au])
+AC_INIT([iperf],[2.0.5+oml2.9.pre0],[oml-user@lists.nicta.com.au])
 AC_CONFIG_HEADER([config.h])
 AM_INIT_AUTOMAKE()
 
