@@ -173,13 +173,13 @@ int main( int argc, char **argv ) {
 #ifdef HAVE_LIBOML2
     if (ext_gSettings->mReportMode == kReport_OML ||
 		    ext_gSettings->mReportMode == kReport_OML_full) {
-	    OML_init (&argc, (const char**) argv);
-	    OML_set_measurement_points(ext_gSettings);
-	    OML_inject_application(argc, argv);
 	    /* If no interval has been required, set it to 1s, 
 	     * it makes more sense to report more samples and let OML deal with them*/
 	    if (0 == ext_gSettings->mInterval)
 		    ext_gSettings->mInterval = 1;
+	    OML_init (&argc, (const char**) argv);
+	    OML_set_measurement_points(ext_gSettings);
+	    OML_inject_application(argc, argv);
     }
 #endif
 
