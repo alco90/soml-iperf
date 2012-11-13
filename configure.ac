@@ -3,9 +3,12 @@ dnl configure.ac
 dnl Process this file with autogen.sh to produce configure files
 dnl ===================================================================
 
-
 AC_PREREQ(2.69)
-AC_INIT([iperf],[2.0.5+oml2.9.pre0],[oml-user@lists.nicta.com.au])
+AC_INIT([iperf],
+	m4_esyscmd([build-aux/git-version-gen .tarball-version]),
+	[oml-user@lists.nicta.com.au])
+AC_CONFIG_MACRO_DIR([m4])                                                                                                              
+AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_HEADER([config.h])
 AM_INIT_AUTOMAKE()
 
@@ -44,10 +47,13 @@ dnl ===================================================================
 AC_PROG_CXX
 CXXFLAGS=`echo " $CXXFLAGS " | sed -e "s/ -g / /"` # do not want it implicitly
 AC_PROG_CC
+gl_EARLY
 CFLAGS=`echo " $CFLAGS " | sed -e "s/ -g / /"` # do not want it implicitly
 AC_ISC_POSIX
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
+
+gl_INIT
 AC_PROG_RANLIB
 AC_PROG_LN_S
 AC_LANG(C)

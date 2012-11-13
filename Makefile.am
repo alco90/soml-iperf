@@ -1,7 +1,10 @@
+ACLOCAL_AMFLAGS = -I m4
+
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = compat doc include src man oml
 
-EXTRA_DIST = configure.gnu
+EXTRA_DIST = m4/gnulib-cache.m4 \
+	     configure.gnu
 
 # Not sure why automake does net clean these anymore...
 CLEANFILES = depcomp config.guess install-sh config.sub missing
