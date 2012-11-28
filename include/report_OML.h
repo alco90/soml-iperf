@@ -44,18 +44,6 @@ int OML_init(int *argc, const char** argv);
 int OML_set_measurement_points(thread_Settings *mSettings);
 
 void OML_inject_application(int argc, char **argv);
-void OML_inject_connection(int ID, const char *local_addr, int local_port,
-		const char *remote_addr, int remote_port);
-void OML_inject_settings(int server_mode, const char *bind_addr, int multicast, int mcast_ttl,
-		int proto, int window_size, int buffer_size);
-void OML_inject_transfer(int ID, double begin_interval, double end_interval, max_size_t size);
-void OML_inject_losses(int ID, double begin_interval, double end_interval,
-		int total_datagrams, int lost_datagrams);
-void OML_inject_jitter(int ID, double begin_interval, double end_interval, double jitter);
-void OML_inject_packets(int ID, int packetID, int packetLen,
-			time_t receivedtime_s, suseconds_t receivedtime_us,
-			time_t senttime_s, suseconds_t senttime_us);
-
 void *OML_peer( Connection_Info *stats, int ID);
 void OML_settings( ReporterData *data );
 void OML_stats( Transfer_Info *stats );
