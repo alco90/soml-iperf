@@ -18,8 +18,11 @@ ltmain.sh
 missing
 autom4te.cache
 stamp-h1
+include/iperf-int.h
+build-aux/
 m4/*.m4
 !m4/gnulib-cache.m4
+gnulib/
 *.o
 *.lo
 *.la
