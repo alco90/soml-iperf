@@ -10,9 +10,9 @@ packets via various transports, such as TCP and UDP.
   }
 
   a.defProperty('interval', 'pause n seconds between periodic bandwidth reports',
-		'-i', {:type => :string, :dynamic => false})
+		'-i', {:type => :double, :dynamic => false})
   a.defProperty('len', 'set length read/write buffer to n (default 8 KB)',
-		'-l', {:type => :string, :dynamic => false})
+		'-l', {:type => :integer, :dynamic => false})
   a.defProperty('print_mss', 'print TCP maximum segment size (MTU - TCP/IP header)',
 		'-m', {:type => :boolean, :dynamic => false})
   a.defProperty('output', 'output the report or error message to this specified file',
@@ -47,7 +47,7 @@ packets via various transports, such as TCP and UDP.
 		'-c', {:order => 1, :type => :string, :dynamic => false})
   a.defProperty('dualtest', 'do a bidirectional test simultaneously',
 		'-d', {:type => :boolean, :dynamic => false})
-  a.defProperty('num', 'number of bytes to transmit (instead of -t)', 
+  a.defProperty('num', 'number of bytes to transmit (instead of -t)',
 		'-n', {:type => :integer, :dynamic => false})
   a.defProperty('tradeoff', 'do a bidirectional test individually',
 		'-r', {:type => :boolean, :dynamic => false})
