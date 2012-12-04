@@ -1,5 +1,6 @@
 if LIBOML2
 oml_FILES = $(top_builddir)/include/iperf_oml.h
+SCAFFOLD=oml2-scaffold
 else !LIBOML2
 oml_FILES =
 endif !LIBOML2
@@ -10,4 +11,4 @@ CLEANFILES = $(oml_FILES)
 BUILT_SOURCES = $(oml_FILES)
 
 $(top_builddir)/include/iperf_oml.h: $(top_srcdir)/oml/iperf.rb.in
-	oml2-scaffold -f --oml $<
+	$(SCAFFOLD) -f --oml $<
