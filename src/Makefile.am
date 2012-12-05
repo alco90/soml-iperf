@@ -8,6 +8,9 @@ AM_CPPFLAGS = @STRIP_BEGIN@ \
 	      -I$(top_srcdir)/include \
 	      -I$(top_builddir)/include \
 	      @STRIP_END@
+if LIBOML2
+AM_CPPFLAGS += -I$(top_builddir)/oml
+endif LIBOML2
 
 AM_CXXFLAGS = -Wall
 AM_CFLAGS = -Wall
@@ -36,7 +39,7 @@ iperf_SOURCES = \
 		stdio.c \
 		tcp_window_size.c
 if LIBOML2
-nodist_iperf_SOURCES = $(top_builddir)/include/iperf_oml.h
+nodist_iperf_SOURCES = $(top_builddir)/oml/iperf_oml.h
 iperf_SOURCES += ReportOML.c
 endif LIBOML2
 

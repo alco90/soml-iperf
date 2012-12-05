@@ -1,7 +1,7 @@
 ACLOCAL_AMFLAGS = -I m4
 
 AUTOMAKE_OPTIONS = foreign
-SUBDIRS = compat doc include src man oml
+SUBDIRS = compat doc include oml src man
 
 EXTRA_DIST = m4/gnulib-cache.m4 \
 	     configure.gnu
