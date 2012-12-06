@@ -3,7 +3,9 @@ ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = foreign
 SUBDIRS = compat doc include oml src man
 
-EXTRA_DIST = m4/gnulib-cache.m4 \
+EXTRA_DIST = autogen.sh \
+	     autoclean.sh \
+	     m4/gnulib-cache.m4 \
 	     configure.gnu
 
 # Not sure why automake does net clean these anymore...
