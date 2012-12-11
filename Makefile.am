@@ -9,6 +9,14 @@ EXTRA_DIST = autogen.sh \
 	     $(top_srcdir)/.version \
 	     configure.gnu
 
+if LIBOML2
+# Phony target for Android OML2 packaging
+iperf_oml.h:
+	$(MAKE) -C oml iperf_oml.h
+
+.PHONY: iperf_oml.h
+endif LIBOML2
+
 BUILT_SOURCES = $(top_srcdir)/.version
 
 $(top_srcdir)/.version:
