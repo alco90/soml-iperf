@@ -25,13 +25,11 @@ pkgdata_DATA =
 endif !LIBOML2
 
 EXTRA_DIST= iperf.rb.in \
-	    iperf-5.3.rb.in \
-	    iperf.rb \
-	    iperf-5.3.rb
+	    iperf-5.3.rb.in
 
-CLEANFILES = iperf_oml.h
-MAINTAINERCLEANFILES = iperf.rb \
-		       iperf-5.3.rb
+CLEANFILES = iperf_oml.h \
+	     iperf.rb \
+	     iperf-5.3.rb
 
 iperf.rb: iperf.rb.in
 	VER=`echo $(VERSION) | sed "s/.*+//;s/-[0-9a-z]\+\(-dirty\)$$//;s/-.*//;s/\(pre\|rc\)\./-/;s/[^-0-9.]//g;s/\./, /g"`; \
