@@ -32,15 +32,15 @@ CLEANFILES = iperf_oml.h \
 	     iperf-5.3.rb
 
 iperf.rb: iperf.rb.in
-	VER=`echo $(VERSION) | sed "s/.*+//;s/-[0-9a-z]\+\(-dirty\)$$//;s/-.*//;s/\(pre\|rc\)\./-/;s/[^-0-9.]//g;s/\./, /g"`; \
-		sed -e 's|@bindir[@]|$(bindir)|g' \
+	VER=`echo $(VERSION) | sed "s/.*+oml//;s/\([0-9\+]\(\.[0-9]\+\)\{1,2\}\).*/\1/;s/\./, /g"`; \
+	    sed -e 's|@bindir[@]|$(bindir)|g' \
 		-e "/a\.path/s/$(PACKAGE)/$(installed_name)/" \
 		-e "s/a\.version.*/a.version($$VER)/" \
 		$< > $@
 
 iperf-5.3.rb: iperf-5.3.rb.in
-	VER=`echo $(VERSION) | sed "s/-[0-9a-z]\+\(-dirty\)$$//;s/-.*//;s/\(pre\|rc\)\./-/;s/[^-0-9.]//g;s/\./, /g"`; \
-		sed -e 's|@bindir[@]|$(bindir)|g' \
+	VER=`echo $(VERSION) | sed "s/.*+oml//;s/\([0-9\+]\(\.[0-9]\+\)\{1,2\}\).*/\1/;s/\./, /g"`; \
+	    sed -e 's|@bindir[@]|$(bindir)|g' \
 		-e "/a\.path/s/$(PACKAGE)/$(installed_name)/" \
 		-e "s/a\.version.*/a.version($$VER)/" \
 		$< > $@
