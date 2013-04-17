@@ -1,6 +1,6 @@
 /*
  * Iperf reporter using the OML library.
- * Copyright (c) 2010, Nicta, Olivier Mehani <olivier.mehani@nicta.com.au>
+ * Copyright (c) 2010-2013, Nicta, Olivier Mehani <olivier.mehani@nicta.com.au>
  * All rights reserved.
  *
  * $Id: ReportOML.patch 1273 2010-04-28 09:20:33Z omehani $
