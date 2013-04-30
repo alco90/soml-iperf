@@ -1,75 +1,85 @@
 # Application description for Iperf, provided for convenience for users of OMF
 # 5.3.
 # Please refer to iperf.rb for the current, up-to-date description.
-defApplication('oml:app:iperf', 'iperf') do |a| 
+#
+# Copyright 2012-2013 National ICT Australia (NICTA)
+#
+# This software may be used and distributed solely under the terms of
+# the MIT license (License).  You should find a copy of the License in
+# COPYING or at http://opensource.org/licenses/MIT. By downloading or
+# using this software you accept the terms and the liability disclaimer
+# in the License.
+#
+defApplication('oml:app:iperf', 'iperf') do |app|
 
-  a.path = "@bindir@/iperf"
-  a.version(2, 9, -0) # This is the version of the OML instrumentation, not the base Iperf
-  a.shortDescription = 'Iperf traffic generator and bandwidth measurement tool'
-  a.description = %{
-Iperf is a traffic generator and bandwidth measurement tool. It provides
-generators producing various forms of packet streams and port for sending these
-packets via various transports, such as TCP and UDP.
+  app.version(2, 9, -0) # This is the version of the OML instrumentation, not the base Iperf
+  app.shortDescription = 'Iperf traffic generator and bandwidth measurement tool'
+  app.description = %{Iperf is a traffic generator and bandwidth measurement
+tool. It provides generators producing various forms of packet streams and port
+for sending these packets via various transports, such as TCP and UDP.
   }
+  app.path = "@bindir@/iperf"
 
-  a.defProperty('interval', 'pause n seconds between periodic bandwidth reports',
-		'i', {:type => :float, :dynamic => false})
-  a.defProperty('len', 'set length read/write buffer to n (default 8 KB)',
-		'l', {:type => :integer, :dynamic => false})
-  a.defProperty('print_mss', 'print TCP maximum segment size (MTU - TCP/IP header)',
-		'm', {:type => :boolean, :dynamic => false})
-  a.defProperty('output', 'output the report or error message to this specified file',
-		'o', {:type => :string, :dynamic => false})
-  a.defProperty('port', 'set server port to listen on/connect to to n (default 5001)',
-		'p', {:type => :integer, :dynamic => false})
-  a.defProperty('udp', 'use UDP rather than TCP',
-		'u', {:order => 2, :type => :boolean, :dynamic => false})
-  a.defProperty('window', 'TCP window size (socket buffer size)',
-		'w', {:type => :integer, :dynamic => false})
-  a.defProperty('bind', 'bind to <host>, an interface or multicast address',
-		'B', {:type => :string, :dynamic => false})
-  a.defProperty('compatibility', 'for use with older versions does not sent extra msgs',
-		'C', {:type => :boolean, :dynamic => false})
-  a.defProperty('mss', 'set TCP maximum segment size (MTU - 40 bytes)',
-		'M', {:type => :integer, :dynamic => false})
-  a.defProperty('nodelay', 'set TCP no delay, disabling Nagle\'s Algorithm',
-		'N', {:type => :boolean, :dynamic => false})
-  a.defProperty('IPv6Version', 'set the domain to IPv6',
-		'V', {:type => :boolean, :dynamic => false})
-  a.defProperty('reportexclude', '[CDMSV]   exclude C(connection) D(data) M(multicast) S(settings) V(server) reports',
-		'x', {:type => :string, :dynamic => false})
-  a.defProperty('reportstyle', 'C or c for CSV report, O or o for OML',
-		'y', {:type => :string, :dynamic => false})
+  app.defProperty('interval', 'pause n seconds between periodic bandwidth reports', ?i,
+		  :type => :float)
+  app.defProperty('len', 'set length read/write buffer to n (default 8 KB)', ?l,
+		  :type => :integer)
+  app.defProperty('print_mss', 'print TCP maximum segment size (MTU - TCP/IP header)', ?m,
+		  :type => :boolean)
+  app.defProperty('output', 'output the report or error message to this specified file', ?o,
+		  :type => :string)
+  app.defProperty('port', 'set server port to listen on/connect to to n (default 5001)', ?p,
+		  :type => :integer)
+  app.defProperty('udp', 'use UDP rather than TCP', ?u,
+		  :type => :boolean,
+		  :order => 2)
+  app.defProperty('window', 'TCP window size (socket buffer size)', ?w,
+		  :type => :integer)
+  app.defProperty('bind', 'bind to <host>, an interface or multicast address', ?B,
+		  :type => :string)
+  app.defProperty('compatibility', 'for use with older versions does not sent extra msgs', ?C,
+		  :type => :boolean)
+  app.defProperty('mss', 'set TCP maximum segment size (MTU - 40 bytes)', ?M,
+		  :type => :integer)
+  app.defProperty('nodelay', 'set TCP no delay, disabling Nagle\'s Algorithm', ?N,
+		  :type => :boolean)
+  app.defProperty('IPv6Version', 'set the domain to IPv6', ?V,
+		  :type => :boolean)
+  app.defProperty('reportexclude', '[CDMSV]   exclude C(connection) D(data) M(multicast) S(settings) V(server) reports', ?x,
+		  :type => :string)
+  app.defProperty('reportstyle', 'C or c for CSV report, O or o for OML', ?y,
+		  :type => :string)
 
-  a.defProperty('server', 'run in server mode',
-		's', {:type => :boolean, :dynamic => false})
+  app.defProperty('server', 'run in server mode', ?s,
+		  :type => :boolean)
 
-  a.defProperty('bandwidth', 'set target bandwidth to n bits/sec (default 1 Mbit/sec)',
-		'b', {:type => :string, :dynamic => false})
-  a.defProperty('client', 'run in client mode, connecting to <host>',
-		'c', {:order => 1, :type => :string, :dynamic => false})
-  a.defProperty('dualtest', 'do a bidirectional test simultaneously',
-		'd', {:type => :boolean, :dynamic => false})
-  a.defProperty('num', 'number of bytes to transmit (instead of -t)',
-		'n', {:type => :integer, :dynamic => false})
-  a.defProperty('tradeoff', 'do a bidirectional test individually',
-		'r', {:type => :boolean, :dynamic => false})
-  a.defProperty('time', 'time in seconds to transmit for (default 10 secs)',
-		't', {:type => :integer, :dynamic => false})
-  a.defProperty('fileinput', 'input the data to be transmitted from a file',
-		'F', {:type => :string, :dynamic => false})
-  a.defProperty('stdin', 'input the data to be transmitted from stdin',
-		'I', {:type => :boolean, :dynamic => false})
-  a.defProperty('listenport', 'port to recieve bidirectional tests back on',
-		'L', {:type => :integer, :dynamic => false})
-  a.defProperty('parallel', 'number of parallel client threads to run',
-		'P', {:type => :integer, :dynamic => false})
-  a.defProperty('ttl', 'time-to-live, for multicast (default 1)',
-		'T', {:type => :integer, :dynamic => false})
-  a.defProperty('linux-congestion', 'set TCP congestion control algorithm (Linux only)',
-		'Z', {:type => :boolean, :dynamic => false})
+  app.defProperty('bandwidth', 'set target bandwidth to n bits/sec (default 1 Mbit/sec)', ?b,
+		  :type => :string)
+  app.defProperty('client', 'run in client mode, connecting to <host>', ?c,
+		  :type => :string,
+		  :order => 1)
+  app.defProperty('dualtest', 'do a bidirectional test simultaneously', ?d,
+		  :type => :boolean)
+  app.defProperty('num', 'number of bytes to transmit (instead of -t)', ?n,
+		  :type => :integer)
+  app.defProperty('tradeoff', 'do a bidirectional test individually', ?r,
+		  :type => :boolean)
+  app.defProperty('time', 'time in seconds to transmit for (default 10 secs)', ?t,
+		  :type => :integer)
+  app.defProperty('fileinput', 'input the data to be transmitted from a file', ?F,
+		  :type => :string)
+  app.defProperty('stdin', 'input the data to be transmitted from stdin', ?I,
+		  :type => :boolean)
+  app.defProperty('listenport', 'port to recieve bidirectional tests back on', ?L,
+		  :type => :integer)
+  app.defProperty('parallel', 'number of parallel client threads to run', ?P,
+		  :type => :integer)
+  app.defProperty('ttl', 'time-to-live, for multicast (default 1)', ?T,
+		  :type => :integer)
+  app.defProperty('linux-congestion', 'set TCP congestion control algorithm (Linux only)', ?Z,
+		  :type => :boolean)
 
-  a.defMeasurement("application"){ |m|
+  app.defMeasurement("application"){ |m|
     m.defMetric('pid', :integer, 'Main process identifier')
     m.defMetric('version', :string, 'Iperf version')
     m.defMetric('cmdline', :string, 'Iperf invocation command line')
@@ -77,7 +87,7 @@ packets via various transports, such as TCP and UDP.
     m.defMetric('starttime_us', :integer, 'Time the application was received (us)')
   }
 
-  a.defMeasurement("settings"){ |m|
+  app.defMeasurement("settings"){ |m|
     m.defMetric('pid', :integer, 'Main process identifier')
     m.defMetric('server_mode', :integer, '1 if in server mode, 0 otherwise')
     m.defMetric('bind_address', :string, 'Address to bind')
@@ -88,7 +98,7 @@ packets via various transports, such as TCP and UDP.
     m.defMetric('buffer_size', :integer, 'UDP buffer size')
   }
 
-  a.defMeasurement("connection"){ |m|
+  app.defMeasurement("connection"){ |m|
     m.defMetric('pid', :integer, 'Main process identifier')
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('local_address', :string, 'Local network address')
@@ -97,7 +107,7 @@ packets via various transports, such as TCP and UDP.
     m.defMetric('remote_port', :integer, 'Remote port')
   }
 
-  a.defMeasurement("transfer"){ |m|
+  app.defMeasurement("transfer"){ |m|
     m.defMetric('pid', :integer, 'Main process identifier')
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
@@ -105,7 +115,7 @@ packets via various transports, such as TCP and UDP.
     m.defMetric('size', :uint32, 'Amount of transmitted data [Bytes]')
   }
 
-  a.defMeasurement("losses"){ |m|
+  app.defMeasurement("losses"){ |m|
     m.defMetric('pid', :integer, 'Main process identifier')
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
@@ -114,7 +124,7 @@ packets via various transports, such as TCP and UDP.
     m.defMetric('lost_datagrams', :integer, 'Number of lost datagrams')
   }
 
-  a.defMeasurement("jitter"){ |m|
+  app.defMeasurement("jitter"){ |m|
     m.defMetric('pid', :integer, 'Main process identifier')
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
@@ -122,7 +132,7 @@ packets via various transports, such as TCP and UDP.
     m.defMetric('jitter', :float, 'Average jitter [ms]')
   }
 
-  a.defMeasurement("packets"){ |m|
+  app.defMeasurement("packets"){ |m|
     m.defMetric('pid', :integer, 'Main process identifier')
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('packet_id', :integer, 'Packet sequence number for datagram-oriented protocols')
@@ -137,5 +147,5 @@ end
 
 # Local Variables:
 # mode:ruby
-# vim: ft=ruby:sw=2
 # End:
+# vim: ft=ruby:sw=2
