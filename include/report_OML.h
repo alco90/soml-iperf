@@ -41,6 +41,7 @@ extern "C" {
 #include "iperf_oml.h"
 
 int OML_init(int *argc, const char** argv);
+int OML_cleanup();
 int OML_set_measurement_points(thread_Settings *mSettings);
 
 void OML_inject_application(int argc, char **argv);

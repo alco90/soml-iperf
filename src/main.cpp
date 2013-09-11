@@ -304,6 +304,9 @@ void cleanup( void ) {
     // Shutdown Winsock
     WSACleanup();
 #endif
+#ifdef HAVE_LIBOML2
+    OML_cleanup();
+#endif
     // clean up the list of clients
     Iperf_destroy ( &clients );
 

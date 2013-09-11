@@ -42,13 +42,21 @@
 
 // YUCK!
 // Only valid in this scope, though...
-static pid_t OML_main_iperf_pid;
+static pid_t OML_main_iperf_pid = 0;
 // Does it have to be this way?
 static double interval;
 
 int OML_init(int *argc, const char **argv) {
 	OML_main_iperf_pid = getpid();
 	return omlc_init("iperf", argc,  argv, NULL);
+}
+
+int OML_cleanup() {
+	if (OML_main_iperf_pid != 0) {
+		return omlc_close();
+	} else {
+		return 0;
+	}
 }
 
 int OML_set_measurement_points(thread_Settings *mSettings) {
