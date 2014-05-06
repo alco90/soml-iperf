@@ -248,7 +248,7 @@ if test "$enable_liboml" != no; then
 		 AC_DEFINE([HAVE_LIBOML2], 1,
 			   [Define if OML support is desired and available])
 		 LIBOML2_CFLAGS=""
-		 LIBOML2_LIBS="-loml2"
+		 LIBOML2_LIBS="-locomm -loml2"
 		 CFLAGS="$CFLAGS $LIBOML2_CFLAGS"
 		 LIBS="$LIBS $LIBOML2_LIBS"
                 ], AC_MSG_WARN([liboml2 found but not its headers]))
