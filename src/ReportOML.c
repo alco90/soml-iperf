@@ -31,6 +31,7 @@
  */
 #include <oml2/omlc.h>
 #include <stdint.h>
+#undef bool /* Avoid warnings when headers.h redefines bool from oml2/omlc.h->stdbool.h */
 #include "headers.h"
 #include "Settings.hpp"
 #include "SocketAddr.h"
