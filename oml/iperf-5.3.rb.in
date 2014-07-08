@@ -100,7 +100,7 @@ for sending these packets via various transports, such as TCP and UDP.
 
   app.defMeasurement("connection"){ |m|
     m.defMetric('pid', :guid, 'Main process globally unique identifier')
-    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('connection_id', :guid, 'Connection globally unique identifier')
     m.defMetric('local_address', :string, 'Local network address')
     m.defMetric('local_port', :integer, 'Local port')
     m.defMetric('remote_address', :string, 'Remote network address')
@@ -109,7 +109,7 @@ for sending these packets via various transports, such as TCP and UDP.
 
   app.defMeasurement("transfer"){ |m|
     m.defMetric('pid', :guid, 'Main process globally unique identifier')
-    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('connection_id', :guid, 'Connection globally unique identifier')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
     m.defMetric('end_interval', :float, 'End of the averaging interval (Iperf timestamp)')
     m.defMetric('size', :uint32, 'Amount of transmitted data [Bytes]')
@@ -117,7 +117,7 @@ for sending these packets via various transports, such as TCP and UDP.
 
   app.defMeasurement("losses"){ |m|
     m.defMetric('pid', :guid, 'Main process globally unique identifier')
-    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('connection_id', :guid, 'Connection globally unique identifier')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
     m.defMetric('end_interval', :float, 'End of the averaging interval (Iperf timestamp)')
     m.defMetric('total_datagrams', :integer, 'Total number of datagrams')
@@ -126,7 +126,7 @@ for sending these packets via various transports, such as TCP and UDP.
 
   app.defMeasurement("jitter"){ |m|
     m.defMetric('pid', :guid, 'Main process globally unique identifier')
-    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('connection_id', :guid, 'Connection globally unique identifier')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
     m.defMetric('end_interval', :float, 'End of the averaging interval (Iperf timestamp)')
     m.defMetric('jitter', :float, 'Average jitter [ms]')
@@ -134,7 +134,7 @@ for sending these packets via various transports, such as TCP and UDP.
 
   app.defMeasurement("packets"){ |m|
     m.defMetric('pid', :guid, 'Main process globally unique identifier')
-    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('connection_id', :guid, 'Connection globally unique identifier')
     m.defMetric('packet_id', :integer, 'Packet sequence number for datagram-oriented protocols')
     m.defMetric('packet_size', :integer, 'Packet size')
     m.defMetric('packet_time_s', :integer, 'Time the packet was processed (s)')

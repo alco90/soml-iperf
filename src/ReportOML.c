@@ -31,6 +31,7 @@
  */
 #include <oml2/omlc.h>
 #include <stdint.h>
+#include <sys/types.h>
 #undef bool /* Avoid warnings when headers.h redefines bool from oml2/omlc.h->stdbool.h */
 #include "headers.h"
 #include "Settings.hpp"
@@ -44,6 +45,7 @@
 // YUCK!
 // Only valid in this scope, though...
 oml_guid_t oml_iperf_guid = 0;
+oml_guid_t oml_transfer_guid[FD_SETSIZE];
 // Does it have to be this way?
 static double interval;
 
@@ -100,6 +102,7 @@ void *OML_peer(Connection_Info *stats, int transferID) {
 	 */
 	static char local_addr[REPORT_ADDRLEN], remote_addr[REPORT_ADDRLEN];
 	int local_port, remote_port;
+	oml_transfer_guid[transferID % FD_SETSIZE] = omlc_guid_generate();
 
 	/* YUCK! (cf. include/headers.h) */
 	inet_ntop(
@@ -128,7 +131,7 @@ void *OML_peer(Connection_Info *stats, int transferID) {
 
 	oml_inject_connection(g_oml_mps->connection,
 			oml_iperf_guid,
-			transferID,
+			oml_transfer_guid[transferID % FD_SETSIZE],
 			local_addr,
 			local_port,
 			remote_addr,
@@ -180,7 +183,7 @@ void OML_stats(Transfer_Info *stats) {
 	if (interval <= 0. || (stats->endTime - stats->startTime <= interval)) {
 		oml_inject_transfer(g_oml_mps->transfer,
 				oml_iperf_guid,
-				stats->transferID,
+				oml_transfer_guid[stats->transferID % FD_SETSIZE],
 				stats->startTime,
 				stats->endTime,
 				stats->TotalLen);
@@ -191,14 +194,14 @@ void OML_stats(Transfer_Info *stats) {
 		if (stats->mUDP == (char)kMode_Server) {
 			oml_inject_losses(g_oml_mps->losses,
 					oml_iperf_guid,
-					stats->transferID,
+					oml_transfer_guid[stats->transferID % FD_SETSIZE],
 					stats->startTime,
 					stats->endTime,
 					stats->cntDatagrams, stats->cntError);
 
 			oml_inject_jitter(g_oml_mps->jitter,
 					oml_iperf_guid,
-					stats->transferID,
+					oml_transfer_guid[stats->transferID % FD_SETSIZE],
 					stats->startTime,
 					stats->endTime,
 					stats->jitter * 1000.0);
@@ -210,20 +213,20 @@ void OML_stats(Transfer_Info *stats) {
 void OML_serverstats(Connection_Info *conn, Transfer_Info *stats) {
 	oml_inject_transfer(g_oml_mps->transfer,
 			oml_iperf_guid,
-			stats->transferID,
+			oml_transfer_guid[stats->transferID % FD_SETSIZE],
 			stats->startTime,
 			stats->endTime,
 			stats->TotalLen);
 	oml_inject_losses(g_oml_mps->losses,
 			oml_iperf_guid,
-			stats->transferID,
+			oml_transfer_guid[stats->transferID % FD_SETSIZE],
 			stats->startTime,
 			stats->endTime,
 			stats->cntDatagrams,
 			stats->cntError);
 	oml_inject_jitter(g_oml_mps->jitter,
 			oml_iperf_guid,
-			stats->transferID,
+			oml_transfer_guid[stats->transferID % FD_SETSIZE],
 			stats->startTime,
 			stats->endTime,
 			stats->jitter * 1000.0);
@@ -232,7 +235,7 @@ void OML_serverstats(Connection_Info *conn, Transfer_Info *stats) {
 void OML_handle_packet(Transfer_Info *stats, ReportStruct *packet) {
 	oml_inject_packets(g_oml_mps->packets,
 			oml_iperf_guid,
-			stats->transferID,
+			oml_transfer_guid[stats->transferID % FD_SETSIZE],
 			packet->packetID,
 			packet->packetLen,
 			packet->packetTime.tv_sec,
