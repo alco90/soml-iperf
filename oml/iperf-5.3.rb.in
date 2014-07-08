@@ -80,7 +80,7 @@ for sending these packets via various transports, such as TCP and UDP.
 		  :type => :boolean)
 
   app.defMeasurement("application"){ |m|
-    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('pid', :guid, 'Main process globally unique identifier')
     m.defMetric('version', :string, 'Iperf version')
     m.defMetric('cmdline', :string, 'Iperf invocation command line')
     m.defMetric('starttime_s', :integer, 'Time the application was received (s)')
@@ -88,7 +88,7 @@ for sending these packets via various transports, such as TCP and UDP.
   }
 
   app.defMeasurement("settings"){ |m|
-    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('pid', :guid, 'Main process globally unique identifier')
     m.defMetric('server_mode', :integer, '1 if in server mode, 0 otherwise')
     m.defMetric('bind_address', :string, 'Address to bind')
     m.defMetric('multicast', :integer, '1 if listening to a Multicast group')
@@ -99,7 +99,7 @@ for sending these packets via various transports, such as TCP and UDP.
   }
 
   app.defMeasurement("connection"){ |m|
-    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('pid', :guid, 'Main process globally unique identifier')
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('local_address', :string, 'Local network address')
     m.defMetric('local_port', :integer, 'Local port')
@@ -108,7 +108,7 @@ for sending these packets via various transports, such as TCP and UDP.
   }
 
   app.defMeasurement("transfer"){ |m|
-    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('pid', :guid, 'Main process globally unique identifier')
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
     m.defMetric('end_interval', :float, 'End of the averaging interval (Iperf timestamp)')
@@ -116,7 +116,7 @@ for sending these packets via various transports, such as TCP and UDP.
   }
 
   app.defMeasurement("losses"){ |m|
-    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('pid', :guid, 'Main process globally unique identifier')
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
     m.defMetric('end_interval', :float, 'End of the averaging interval (Iperf timestamp)')
@@ -125,7 +125,7 @@ for sending these packets via various transports, such as TCP and UDP.
   }
 
   app.defMeasurement("jitter"){ |m|
-    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('pid', :guid, 'Main process globally unique identifier')
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('begin_interval', :float, 'Start of the averaging interval (Iperf timestamp)')
     m.defMetric('end_interval', :float, 'End of the averaging interval (Iperf timestamp)')
@@ -133,7 +133,7 @@ for sending these packets via various transports, such as TCP and UDP.
   }
 
   app.defMeasurement("packets"){ |m|
-    m.defMetric('pid', :integer, 'Main process identifier')
+    m.defMetric('pid', :guid, 'Main process globally unique identifier')
     m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
     m.defMetric('packet_id', :integer, 'Packet sequence number for datagram-oriented protocols')
     m.defMetric('packet_size', :integer, 'Packet size')

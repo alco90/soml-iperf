@@ -43,17 +43,17 @@
 
 // YUCK!
 // Only valid in this scope, though...
-static pid_t OML_main_iperf_pid = 0;
+oml_guid_t oml_iperf_guid = 0;
 // Does it have to be this way?
 static double interval;
 
 int OML_init(int *argc, const char **argv) {
-	OML_main_iperf_pid = getpid();
+	oml_iperf_guid = omlc_guid_generate();
 	return omlc_init("iperf", argc,  argv, NULL);
 }
 
 int OML_cleanup() {
-	if (OML_main_iperf_pid != 0) {
+	if (oml_iperf_guid != 0) {
 		return omlc_close();
 	} else {
 		return 0;
@@ -85,13 +85,13 @@ void OML_inject_application(int argc, char **argv) {
 		}
 	}
 	oml_inject_application(g_oml_mps->application,
-			OML_main_iperf_pid,
+			oml_iperf_guid,
 			IPERF_VERSION,
 			cmdline,
 			(uint32_t) tv.tv_sec,
 			(uint32_t) tv.tv_usec);
 }
-void *OML_peer(Connection_Info *stats, int ID) {
+void *OML_peer(Connection_Info *stats, int transferID) {
 	/*
 	 * It is somewhat better to store address strings statically in this
 	 * function rather than somewhere unknown in the libc. This will have
@@ -127,8 +127,8 @@ void *OML_peer(Connection_Info *stats, int ID) {
 	remote_port = SockAddr_getPort(&stats->peer);
 
 	oml_inject_connection(g_oml_mps->connection,
-			OML_main_iperf_pid,
-			ID,
+			oml_iperf_guid,
+			transferID,
 			local_addr,
 			local_port,
 			remote_addr,
@@ -166,7 +166,7 @@ void OML_settings( ReporterData *data ) {
 
 
     oml_inject_settings(g_oml_mps->settings,
-		    OML_main_iperf_pid,
+		    oml_iperf_guid,
 		    server_mode,
 		    bind_addr,
 		    multicast,
@@ -179,7 +179,7 @@ void OML_stats(Transfer_Info *stats) {
 	/* Skip summary stats at the end when an interval has been defined */
 	if (interval <= 0. || (stats->endTime - stats->startTime <= interval)) {
 		oml_inject_transfer(g_oml_mps->transfer,
-				OML_main_iperf_pid,
+				oml_iperf_guid,
 				stats->transferID,
 				stats->startTime,
 				stats->endTime,
@@ -190,13 +190,14 @@ void OML_stats(Transfer_Info *stats) {
 		 */
 		if (stats->mUDP == (char)kMode_Server) {
 			oml_inject_losses(g_oml_mps->losses,
-					OML_main_iperf_pid,stats->transferID,
+					oml_iperf_guid,
+					stats->transferID,
 					stats->startTime,
 					stats->endTime,
 					stats->cntDatagrams, stats->cntError);
 
 			oml_inject_jitter(g_oml_mps->jitter,
-					OML_main_iperf_pid,
+					oml_iperf_guid,
 					stats->transferID,
 					stats->startTime,
 					stats->endTime,
@@ -208,19 +209,20 @@ void OML_stats(Transfer_Info *stats) {
 
 void OML_serverstats(Connection_Info *conn, Transfer_Info *stats) {
 	oml_inject_transfer(g_oml_mps->transfer,
-			OML_main_iperf_pid,stats->transferID,
+			oml_iperf_guid,
+			stats->transferID,
 			stats->startTime,
 			stats->endTime,
 			stats->TotalLen);
 	oml_inject_losses(g_oml_mps->losses,
-			OML_main_iperf_pid,
+			oml_iperf_guid,
 			stats->transferID,
 			stats->startTime,
 			stats->endTime,
 			stats->cntDatagrams,
 			stats->cntError);
 	oml_inject_jitter(g_oml_mps->jitter,
-			OML_main_iperf_pid,
+			oml_iperf_guid,
 			stats->transferID,
 			stats->startTime,
 			stats->endTime,
@@ -229,7 +231,7 @@ void OML_serverstats(Connection_Info *conn, Transfer_Info *stats) {
 
 void OML_handle_packet(Transfer_Info *stats, ReportStruct *packet) {
 	oml_inject_packets(g_oml_mps->packets,
-			OML_main_iperf_pid,
+			oml_iperf_guid,
 			stats->transferID,
 			packet->packetID,
 			packet->packetLen,

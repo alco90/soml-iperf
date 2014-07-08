@@ -146,6 +146,8 @@ extern const char warn_window_requested[];
 
 #ifdef HAVE_LIBOML2
 extern const char warn_window_requested_OML[];
+
+extern const char warn_guid_map_overwritten_OML[];
 #endif
 
 extern const char warn_window_small[];
