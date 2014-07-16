@@ -343,7 +343,7 @@ void Client::Run( void ) {
         mBuf_UDP->tv_usec = htonl( reportstruct->packetTime.tv_usec ); 
 
         if ( isMulticast( mSettings ) ) {
-            write( mSettings->mSock, mBuf, mSettings->mBufLen ); 
+            (void)write( mSettings->mSock, mBuf, mSettings->mBufLen ); 
         } else {
             write_UDP_FIN( ); 
         }
@@ -437,7 +437,7 @@ void Client::write_UDP_FIN( ) {
         count++; 
 
         // write data 
-        write( mSettings->mSock, mBuf, mSettings->mBufLen ); 
+        (void)write( mSettings->mSock, mBuf, mSettings->mBufLen ); 
 
         // wait until the socket is readable, or our timeout expires 
         FD_ZERO( &readSet ); 
