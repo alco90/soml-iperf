@@ -702,7 +702,7 @@ void Listener::runAsDaemon(const char *pname, int facility) {
         exit(0); 
     }
 
-    chdir("."); 
+    (void)chdir("."); 
     fprintf( stderr, "Running Iperf Server as a daemon\n"); 
     fprintf( stderr, "The Iperf daemon process ID : %d\n",((int)getpid())); 
     fflush(stderr); 
