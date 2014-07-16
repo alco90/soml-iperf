@@ -256,8 +256,8 @@ if test "$enable_liboml" != no; then
 fi
 
 AS_IF([test -e $srcdir/.git],[
-	git_date=`git log --format="%cD" HEAD^..HEAD`
-	git_rev=`git log --format="%t" HEAD^..HEAD`
+	git_date=`git log --format="%cD" -n1`
+	git_rev=`git log --format="%t" -n1`
 	],[
 	git_date="No Git information"
 	git_rev=""
