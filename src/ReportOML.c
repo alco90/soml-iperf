@@ -48,9 +48,13 @@ oml_guid_t oml_iperf_guid = 0;
 oml_guid_t oml_transfer_guid[FD_SETSIZE];
 // Does it have to be this way?
 static double interval;
+int saved_argc;
+const char **saved_argv;
 
 int OML_init(int *argc, const char **argv) {
 	oml_iperf_guid = omlc_guid_generate();
+	saved_argc = *argc;
+	saved_argv = argv;
 	return omlc_init("iperf", argc,  argv, NULL);
 }
 
@@ -98,9 +102,13 @@ oml_inject_metadata(int argc, const char **argv)
 #endif
 
 int OML_set_measurement_points(thread_Settings *mSettings) {
+	int ret;
 	interval = mSettings->mInterval;
 	oml_register_mps();
-	return omlc_start();
+	if(!(ret=omlc_start())) {
+		oml_inject_metadata(saved_argc, saved_argv);
+	}
+	return ret;
 }
 
 void OML_inject_application(int argc, char **argv) {
