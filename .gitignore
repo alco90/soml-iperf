@@ -28,3 +28,8 @@ gnulib/
 *.la
 *.deps
 *.libs
+*_oml.h
+*_popt.h
+.version
+*-oml2
+oml/iperf.rb
