@@ -229,7 +229,8 @@ void OML_stats(Transfer_Info *stats) {
 				oml_transfer_guid[stats->transferID % FD_SETSIZE],
 				stats->startTime,
 				stats->endTime,
-				stats->TotalLen);
+				stats->TotalLen,
+                                ((double)stats->TotalLen)/(stats->endTime-stats->startTime));
 		/* This should really be conditionned by whether the transport is
 		 * - unreliable and,
 		 * - datagram-oriented...
@@ -259,7 +260,8 @@ void OML_serverstats(Connection_Info *conn, Transfer_Info *stats) {
 			oml_transfer_guid[stats->transferID % FD_SETSIZE],
 			stats->startTime,
 			stats->endTime,
-			stats->TotalLen);
+			stats->TotalLen,
+                        ((double)stats->TotalLen)/(stats->endTime-stats->startTime));
 	oml_inject_losses(g_oml_mps->losses,
 			oml_iperf_guid,
 			oml_transfer_guid[stats->transferID % FD_SETSIZE],

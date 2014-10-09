@@ -78,110 +78,68 @@ for sending these packets via various transports, such as TCP and UDP.
 		  :type => :boolean)
 
   app.defMeasurement("application"){ |m|
-    m.defMetric('pid', :guid,
-		:description => 'Globally unique identifier of this Iperf instance')
-    m.defMetric('version', :string,
-		:description => 'Iperf version')
-    m.defMetric('cmdline', :string,
-		:description => 'Iperf invocation command line')
-    m.defMetric('starttime_s', :integer, :unit => "second",
-		:description => 'Time the application was received')
-    m.defMetric('starttime_us', :integer, :unit => "microsecond",
-		:description => 'Time the application was received')
+    m.defMetric('pid', :integer, 'Main process identifier', [['MD:Iperf','MD:hasMetricAttributes', 'MD:id'],['MD:id','MD:MeasurementDataValue','%value%']])
+    m.defMetric('version', :string, 'Iperf version',[['MD:Iperf','MD:hasMeasurementData','MD:ToolVersion'],['MD:ToolVersion','MD:ToolVersionValue','%value%']])
+    m.defMetric('cmdline', :string, 'Iperf invocation command line',[['MD:Iperf','MD:hasMeasurementData','MD:Arguments'],['MD:Arguments','MD:ArgumentsValue','%value%']])
+    m.defMetric('starttime_s', :integer, 'Time the application was received (s)',[['MD:Iperf','MD:hasMeasurementData','MD:Arguments'],['MD:Arguments','MD:ArgumentsValue','%value%']])
+    m.defMetric('starttime_us', :integer, 'Time the application was received (us)',[['MD:Iperf','MD:hasMeasurementData','MD:Arguments'],['MD:Arguments','MD:ArgumentsValue','%value%']])
   }
 
   app.defMeasurement("settings"){ |m|
-    m.defMetric('pid', :guid,
-		:description => 'Globally unique identifier of this Iperf instance')
-    m.defMetric('server_mode', :integer, :unit => "[0-1]",
-		:description => '1 if in server mode, 0 otherwise')
-    m.defMetric('bind_address', :string,
-		:description => 'Address to bind')
-    m.defMetric('multicast', :integer,
-		:description => '1 if listening to a Multicast group')
-    m.defMetric('multicast_ttl', :integer, :unit => "nhops",
-		:description => 'Multicast TTL if relevant')
-    m.defMetric('transport_protocol', :integer, :unit => "IANA number",
-		:description => 'Transport protocol')
-    m.defMetric('window_size', :integer, :unit => "Byte",
-		:description => 'TCP window size')
-    m.defMetric('buffer_size', :integer, :unit => "Byte",
-		:description => 'UDP buffer size')
+    m.defMetric('pid', :integer, 'Main process identifier', [['MD:Iperf','MD:hasMetricAttributes', 'MD:id'],['MD:id','MD:MeasurementDataValue','%value%']])
+    m.defMetric('server_mode', :integer, '1 if in server mode, 0 otherwise')
+    m.defMetric('bind_address', :string, 'Address to bind',[['MD:Iperf','MD:hasMetricAttributes','MD:BindIP'],['MD:BindIP','MD:MeasurementDataValue','%value%'],['MD:BindIP','MD:defaultUnit','MU:ipv4dotted']])
+    m.defMetric('multicast', :integer, '1 if listening to a Multicast group',[['MD:Iperf','MD:hasMeasurementData','MD:isListeningMulticast'],['MD:isListeningMulticast','MD:MeasurementDataValue','%value%']])
+    m.defMetric('multicast_ttl', :integer, 'Multicast TTL if relevant',[['MD:Iperf','MD:hasMetricAttributes','MD:FinalTtlMeasurement'],['MD:FinalTtlMeasurement','MD:MeasurementDataValue','%value%']])
+    m.defMetric('transport_protocol', :integer, 'Transport protocol (IANA number)', [['MD:Iperf','MD:hasMetricAttributes','MGC:TransportProtocol'],['MGC:TransportProtocol','MGC:protocolNumber','%value%']])
+    m.defMetric('window_size', :integer, 'TCP window size',[['MD:Iperf','MD:hasMeasurementData','MD:Arguments'],['MD:Arguments','MD:ArgumentsValue','%value%']])
+    m.defMetric('buffer_size', :integer, 'UDP buffer size',[['MD:Iperf','MD:hasMeasurementData','MD:Arguments'],['MD:Arguments','MD:ArgumentsValue','%value%']])
   }
 
   app.defMeasurement("connection"){ |m|
-    m.defMetric('pid', :guid,
-		:description => 'Globally unique identifier of this Iperf instance')
-    m.defMetric('connection_id', :guid,
-		:description => 'Globally unique identifier of the connection')
-    m.defMetric('local_address', :string,
-		:description => 'Local network address')
-    m.defMetric('local_port', :integer,
-		:description => 'Local port')
-    m.defMetric('remote_address', :string,
-		:description => 'Remote network address')
-    m.defMetric('remote_port', :integer,
-		:description => 'Remote port')
+    m.defMetric('pid', :integer, 'Main process identifier', [['MD:Iperf','MD:hasMetricAttributes', 'MD:id'],['MD:id','MD:MeasurementDataValue','%value%']])
+    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('local_address', :string, 'Local network address', [['MD:Iperf','MD:hasMetricAttributes','MD:SourceIP'],['MD:SourceIP','MD:SourceIPValue','%value%'],['MD:SourceIP','MD:defaultUnit','MU:ipv4dotted']])
+    m.defMetric('local_port', :integer, 'Local port', [['MD:Iperf','MD:hasMetricAttributes','MD:SourcePort'],['MD:SourcePort','MD:SourcePortValue', '%value%']])
+    m.defMetric('remote_address', :string, 'Remote network address', [['MD:Iperf','MD:hasMetricAttributes','MD:DestinationIP'],['MD:DestinationIP','MD:DestinationIPValue','%value%'],['MD:DestinationIP','MD:defaultUnit','MU:ipv4dotted']])
+    m.defMetric('remote_port', :integer, 'Remote port', [['MD:Iperf','MD:hasMetricAttributes','MD:DestinationPort'],['MD:DestinationPort','MD:DestinationPortValue', '%value%']])
   }
 
   app.defMeasurement("transfer"){ |m|
-    m.defMetric('pid', :guid,
-		:description => 'Globally unique identifier of this Iperf instance')
-    m.defMetric('connection_id', :guid,
-		:description => 'Globally unique identifier of the connection')
-    m.defMetric('begin_interval', :double, :unit => "second",
-		:description => 'Start of the averaging interval (Iperf timestamp)')
-    m.defMetric('end_interval', :double, :unit => "second",
-		:description => 'End of the averaging interval (Iperf timestamp)')
-    m.defMetric('size', :uint64, :unit => "Byte",
-		:description => 'Amount of transmitted data ')
+    m.defMetric('pid', :integer, 'Main process identifier', [['MD:Iperf','MD:hasMetricAttributes', 'MD:id'],['MD:id','MD:MeasurementDataValue','%value%']])
+    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('begin_interval', :double, 'Start of the averaging interval (Iperf timestamp)', [['MD:Iperf','MD:hasMetricAttributes','MGC:TimeStamp'],['MGC:TimeStamp','MGC:startTime','%value%'],['MGC:TimeStamp','MD:defaultUnit','MU:second']])
+    m.defMetric('end_interval', :double, 'End of the averaging interval (Iperf timestamp)', [['MD:Iperf','MD:hasMetricAttributes','MGC:TimeStamp'],['MGC:TimeStamp','MGC:endTime','%value%'],['MGC:TimeStamp','MD:defaultUnit','MU:second']])
+    m.defMetric('size', :uint64, 'Amount of transmitted data [Bytes]')
+    m.defMetric('capacity', :double, 'Capacity of the link [Bytes per second]', [['MD:Iperf','MD:hasMetricAttributes', 'MD:CapacityMeasurement'],['MD:CapacityMeasurement','MD:CapacityMeasurementValue','%value%'],['MD:CapacityMeasurement','MD:defaultUnit','MU:Bytepersec']])
   }
 
   app.defMeasurement("losses"){ |m|
-    m.defMetric('pid', :guid,
-		:description => 'Globally unique identifier of this Iperf instance')
-    m.defMetric('connection_id', :guid,
-		:description => 'Globally unique identifier of the connection')
-    m.defMetric('begin_interval', :double,
-		:description => 'Start of the averaging interval (Iperf timestamp)')
-    m.defMetric('end_interval', :double, :unit => "second",
-		:description => 'End of the averaging interval (Iperf timestamp)')
-    m.defMetric('total_datagrams', :integer, :unit => "second",
-		:description => 'Total number of datagrams')
-    m.defMetric('lost_datagrams', :integer,
-		:description => 'Number of lost datagrams')
+    m.defMetric('pid', :integer, 'Main process identifier', [['MD:Iperf','MD:hasMetricAttributes', 'MD:id'],['MD:id','MD:MeasurementDataValue','%value%']])
+    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('begin_interval', :double, 'Start of the averaging interval (Iperf timestamp)', [['MD:Iperf','MD:hasMetricAttributes','MGC:TimeStamp'],['MGC:TimeStamp','MGC:startTime','%value%'],['MGC:TimeStamp','MD:defaultUnit','MU:second']])
+    m.defMetric('end_interval', :double, 'End of the averaging interval (Iperf timestamp)', [['MD:Iperf','MD:hasMetricAttributes','MGC:TimeStamp'],['MGC:TimeStamp','MGC:endTime','%value%'],['MGC:TimeStamp','MD:defaultUnit','MU:second']])
+    m.defMetric('total_datagrams', :integer, 'Total number of datagrams', [['MD:Iperf','MD:hasMeasurementData','MD:PacketsCount'],['MD:PacketsCount','MD:PacketsCountValue','%value%']])
+    m.defMetric('lost_datagrams', :integer, 'Number of lost datagrams', [['MD:Iperf','MD:hasMeasurementData','MD:ErrorsRate'],['MD:ErrorsRate','MD:ErrorsRateValue','%value%']])
   }
 
   app.defMeasurement("jitter"){ |m|
-    m.defMetric('pid', :guid,
-		:description => 'Globally unique identifier of this Iperf instance')
-    m.defMetric('connection_id', :guid,
-		:description => 'Globally unique identifier of the connection')
-    m.defMetric('begin_interval', :double, :unit => "second",
-		:description => 'Start of the averaging interval (Iperf timestamp)')
-    m.defMetric('end_interval', :double, :unit => "second",
-		:description => 'End of the averaging interval (Iperf timestamp)')
-    m.defMetric('jitter', :double, :unit => "millisecond",
-		:description => 'Average jitter')
+    m.defMetric('pid', :integer, 'Main process identifier', [['MD:Iperf','MD:hasMetricAttributes', 'MD:id'],['MD:id','MD:MeasurementDataValue','%value%']])
+    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('begin_interval', :double, 'Start of the averaging interval (Iperf timestamp)', [['MD:Iperf','MD:hasMetricAttributes','MGC:TimeStamp'],['MGC:TimeStamp','MGC:startTime','%value%'],['MGC:TimeStamp','MD:defaultUnit','MU:second']])
+    m.defMetric('end_interval', :double, 'End of the averaging interval (Iperf timestamp)', [['MD:Iperf','MD:hasMetricAttributes','MGC:TimeStamp'],['MGC:TimeStamp','MGC:endTime','%value%'],['MGC:TimeStamp','MD:defaultUnit','MU:second']])
+    m.defMetric('jitter', :double, 'Average jitter [ms]', [['MD:Iperf','MD:hasMetricAttributes','MD:DelayVariationMeasurement'],['MD:DelayVariationMeasurement','MD:DelayVariationMeasurementValue','%value%'],['MD:DelayVariationMeasurement','MD:defaultUnit','MU:millisecond']])
   }
 
   app.defMeasurement("packets"){ |m|
-    m.defMetric('pid', :guid,
-		:description => 'Globally unique identifier of this Iperf instance')
-    m.defMetric('connection_id', :guid,
-		:description => 'Globally unique identifier of the connection')
-    m.defMetric('packet_id', :integer,
-		:description => 'Packet sequence number for datagram-oriented protocols')
-    m.defMetric('packet_size', :integer, :unit => "Byte",
-		:description => 'Packet size')
-    m.defMetric('packet_time_s', :integer, :unit => "second",
-		:description => 'Time the packet was processed')
-    m.defMetric('packet_time_us', :integer, :unit => "microsecond",
-		:description => 'Time the packet was processed')
-    m.defMetric('packet_sent_time_s', :integer, :unit => "second",
-		:description => 'Time the packet was sent for datagram-oriented protocols')
-    m.defMetric('packet_sent_time_us', :integer, :unit => "microsecond",
-		:description => 'Time the packet was sent for datagram-oriented protocols')
+    m.defMetric('pid', :integer, 'Main process identifier', [['MD:Iperf','MD:hasMetricAttributes', 'MD:id'],['MD:id','MD:MeasurementDataValue','%value%']])
+    m.defMetric('connection_id', :integer, 'Connection identifier (socket)')
+    m.defMetric('packet_id', :integer, 'Packet sequence number for datagram-oriented protocols',[['MD:Iperf','MD:hasMeasurementData','MD:PacketIdentifier'],['MD:PacketIdentifier','MD:PacketIdentifierValue','%value%']])
+    m.defMetric('packet_size', :integer, 'Packet size', [['MD:Iperf','MD:hasMeasurementData', 'MD:PacketSize'],['MD:PacketSize','MD:PacketSizeValue','%value%'],['MD:PacketSize','MD:defaultUnit','MU:Byte']])
+    m.defMetric('packet_time_s', :integer, 'Time the packet was processed (s)')
+    m.defMetric('packet_time_us', :integer, 'Time the packet was processed (us)')
+    m.defMetric('packet_sent_time_s', :integer, 'Time the packet was sent (s) for datagram-oriented protocols',[['MD:Iperf','MD:hasMeasurementData','MD:OneWayDelayMeasurement'],['MD:OneWayDelayMeasurement','MD:OneWayDelayMeasurementValue','%value%'],['MD:OneWayDelayMeasurement','MD:defaultUnit','MU:second']])
+    m.defMetric('packet_sent_time_us', :integer, 'Time the packet was sent (us) for datagram-oriented protocols',[['MD:Iperf','MD:hasMeasurementData','MD:OneWayDelayMeasurement'],['MD:OneWayDelayMeasurement','MD:OneWayDelayMeasurementValue','%value%'],['MD:OneWayDelayMeasurement','MD:defaultUnit','MU:microsecond']])
   }
 
 end

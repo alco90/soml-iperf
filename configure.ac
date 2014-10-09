@@ -247,6 +247,8 @@ if test "$enable_liboml" != no; then
 		 ac_cv_have_liboml=yes
 		 AC_DEFINE([HAVE_LIBOML2], 1,
 			   [Define if OML support is desired and available])
+                 AC_DEFINE([HAVE_LIBSEM], [1],
+                           [Define if libsemantic is installed.])
 		 LIBOML2_CFLAGS=""
 		 LIBOML2_LIBS="-locomm -loml2"
 		 CFLAGS="$CFLAGS $LIBOML2_CFLAGS"
@@ -299,6 +301,7 @@ AC_SUBST(LIBOML2_CFLAGS)
 AC_SUBST(LIBOML2_LIBS)
 
 AM_CONDITIONAL([LIBOML2], [test x$ac_cv_have_liboml = xyes])
+AM_CONDITIONAL(HAVE_SEMANTIC, true)
 
 AC_CONFIG_FILES([Makefile
 		compat/Makefile

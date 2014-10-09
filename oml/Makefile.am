@@ -35,4 +35,4 @@ iperf.rb: iperf.rb.in
 		$< > $@
 
 iperf_oml.h: iperf.rb
-	$(SCAFFOLD) -f --oml $<
+	$(SCAFFOLD) -f --oml $< --ontology ./etsi-ontology/
